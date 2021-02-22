@@ -1,0 +1,26 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<vector android:height="19.964256dp" android:viewportHeight="1024"
+    android:viewportWidth="1231" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#B6C1D8" android:pathData="M1024,75.78H227.33V512c0,20.99 16.9,37.89 37.89,37.89h796.67V113.66c0,-20.99 -16.9,-37.89 -37.89,-37.89z"/>
+    <path android:fillAlpha="0.4" android:fillColor="#A1AECE"
+        android:pathData="M1099.78,0h-834.56c-20.99,0 -37.89,16.9 -37.89,37.89v37.89H1024c20.99,0 37.89,16.9 37.89,37.89v436.22h37.89c20.99,0 37.89,-16.9 37.89,-37.89V37.89c0,-20.99 -16.9,-37.89 -37.89,-37.89z" android:strokeAlpha="0.4"/>
+    <path android:fillAlpha="0.4" android:fillColor="#A1AECE"
+        android:pathData="M227.33,512V75.78H170.5c-20.99,0 -37.89,16.9 -37.89,37.89v474.11c0,20.99 16.9,37.89 37.89,37.89H1024c20.99,0 37.89,-16.9 37.89,-37.89v-37.89H265.73c-20.99,0 -38.4,-16.9 -38.4,-37.89z" android:strokeAlpha="0.4"/>
+    <path android:fillColor="#3A75FF" android:pathData="M29.7,148.99h586.75L685.06,312.32h516.61c16.38,0 29.7,12.8 29.7,29.18v652.8c0,16.38 -13.31,29.7 -29.7,29.7H29.7c-16.38,0 -29.7,-13.31 -29.7,-29.7V178.69c0,-16.38 12.8,-29.7 29.7,-29.7 -0.51,0 0,0 0,0z"/>
+</vector>

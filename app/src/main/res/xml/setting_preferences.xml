@@ -1,0 +1,55 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="@string/hook_option">
+        <SwitchPreference
+                app:key="java_execvp"
+                android:title="@string/block_java_execvp"
+                app:summaryOn="@string/block_java_execvp_true"
+                app:summaryOff="@string/block_java_execvp_false" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/about_app">
+        <Preference
+                app:key="native_tip"
+                app:icon="@drawable/ic_descriptor_24dp"
+                android:title="@string/native_hook_descriptor" />
+        <Preference
+                app:key="github"
+                app:icon="@drawable/ic_github_24dp"
+                android:title="@string/github" />
+        <Preference
+                app:key="follow_wechat"
+                app:icon="@drawable/ic_wechat_24dp"
+                android:title="@string/wechat_public_descriptor" />
+        <Preference
+                app:key="donate"
+                app:icon="@drawable/ic_donate_24dp"
+                android:title="@string/donate" />
+        <Preference
+                app:key="share"
+                app:icon="@drawable/ic_shared_24dp"
+                android:title="@string/share" />
+        <Preference
+            app:key="version"
+                app:icon="@drawable/ic_descriptor_24dp"
+                android:title="@string/version"/>
+    </PreferenceCategory>
+</PreferenceScreen>

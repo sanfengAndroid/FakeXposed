@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="3dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="2dp">
+
+    <com.google.android.material.circularreveal.CircularRevealLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="?android:attr/listPreferredItemHeight"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:padding="5dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/old"
+                    app:layout_constraintBottom_toBottomOf="@id/new_cmd_tv"
+                    app:layout_constraintEnd_toEndOf="@+id/input_stream"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="@string/cmd"
+                    android:textSize="14sp"
+                    android:id="@+id/cmd" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/old_cmd_args_tv"
+                    app:layout_constraintBottom_toBottomOf="@+id/old_cmd_args_tv"
+                    app:layout_constraintEnd_toEndOf="@+id/input_stream"
+                    android:gravity="center"
+                    android:text="@string/args"
+                    android:textSize="14sp"
+                    android:id="@+id/args" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/args"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/input_stream"
+                    android:textSize="14sp"
+                    android:id="@+id/input_stream" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/input_stream"
+                    app:layout_constraintRight_toRightOf="@+id/input_stream"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/output_stream"
+                    android:textSize="14sp"
+                    android:id="@+id/output_stream" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/output_stream"
+                    app:layout_constraintRight_toRightOf="@+id/input_stream"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    android:text="@string/error_stream"
+                    android:textSize="14sp"
+                    android:id="@+id/error_stream" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/cmd"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/old_cmd_tv"
+                    app:layout_constraintBottom_toBottomOf="@+id/new_"
+
+                    android:textSize="18sp"
+                    android:text="@string/old"
+                    android:gravity="center"
+                    android:id="@+id/old" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/split"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/old"
+
+                    android:textSize="18sp"
+                    android:text="@string/new_"
+                    android:gravity="center"
+                    android:id="@+id/new_" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/cmd"
+                    app:layout_constraintTop_toBottomOf="@+id/old"
+                    app:layout_constraintEnd_toStartOf="@+id/split"
+                    app:layout_constraintBottom_toBottomOf="@id/new_cmd_tv"
+                    android:layout_marginTop="4dp"
+
+                    android:textSize="16sp"
+                    android:text="@string/null_value"
+                    android:gravity="center"
+                    android:id="@+id/old_cmd_tv" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:layout_constraintLeft_toRightOf="@id/old_cmd_tv"
+                    app:layout_constraintRight_toLeftOf="@id/new_cmd_tv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/new_cmd_args_tv"
+
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:background="@drawable/ic_arrow_24dp"
+                    android:id="@+id/split" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/new_"
+                    app:layout_constraintStart_toEndOf="@+id/split"
+                    app:layout_constraintEnd_toEndOf="@+id/new_"
+                    app:layout_constraintBottom_toBottomOf="@id/old_cmd_tv"
+                    android:layout_marginTop="4dp"
+
+                    android:textSize="16sp"
+                    android:text="@string/null_value"
+                    android:id="@+id/new_cmd_tv"
+                    android:gravity="center" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/args"
+                    app:layout_constraintTop_toBottomOf="@+id/old_cmd_tv"
+                    app:layout_constraintEnd_toEndOf="@+id/old"
+                    app:layout_constraintBottom_toBottomOf="@+id/new_cmd_args_tv"
+                    android:layout_marginTop="8dp"
+
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:text="@string/null_value"
+                    android:id="@+id/old_cmd_args_tv" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/split"
+                    app:layout_constraintTop_toBottomOf="@+id/new_cmd_tv"
+                    app:layout_constraintEnd_toEndOf="@+id/new_"
+                    app:layout_constraintBottom_toBottomOf="@id/old_cmd_args_tv"
+                    android:layout_marginTop="8dp"
+
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:text="@string/null_value"
+                    android:id="@+id/new_cmd_args_tv" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/input_stream"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/input_stream"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:text="@string/null_value"
+                    android:id="@+id/input_stream_string"
+                    tools:ignore="SmallSp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/output_stream"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/output_stream"
+
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:text="@string/null_value"
+                    android:id="@+id/output_stream_string"
+                    tools:ignore="SmallSp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/output_stream"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/error_stream"
+
+                    android:textSize="10sp"
+                    android:gravity="center"
+                    android:text="@string/null_value"
+                    android:id="@+id/error_stream_string"
+                    tools:ignore="SmallSp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/item_switch"
+                android:layout_gravity="center" />
+    </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+</com.google.android.material.card.MaterialCardView>

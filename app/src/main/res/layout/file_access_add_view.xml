@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/_file_layout"
+            app:layout_constraintBottom_toBottomOf="@+id/_file_layout"
+            android:id="@+id/item_is_dir"
+            android:text="@string/dir"/>
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_is_dir"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.XpFilter.TextInputLayout"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/ic_open_file_24dp"
+            android:id="@+id/_file_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:id="@+id/file_path" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/owner_read"
+            app:layout_constraintTop_toBottomOf="@+id/_file_layout"
+            android:text="@string/read"
+            app:layout_constraintEnd_toStartOf="@+id/_write"
+            android:layout_marginStart="10dp"
+            android:id="@+id/_read" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/_read"
+            app:layout_constraintTop_toTopOf="@+id/_read"
+            app:layout_constraintEnd_toStartOf="@+id/_execute"
+            android:text="@string/write"
+            android:id="@+id/_write" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/_write"
+            app:layout_constraintTop_toTopOf="@+id/_read"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/execute"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/_execute" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/_read"
+            app:layout_constraintBottom_toBottomOf="@+id/owner_read"
+            android:text="@string/owner"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:id="@+id/_owner" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/_owner"
+            app:layout_constraintTop_toBottomOf="@+id/_owner"
+            app:layout_constraintBottom_toBottomOf="@+id/group_read"
+            android:text="@string/group"
+            android:layout_marginTop="20dp"
+            android:id="@+id/_group" />
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/_owner"
+            app:layout_constraintTop_toBottomOf="@+id/_group"
+            app:layout_constraintBottom_toBottomOf="@+id/other_read"
+            android:text="@string/other"
+            android:layout_marginTop="20dp"
+            android:id="@+id/_other" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/_owner"
+            app:layout_constraintTop_toBottomOf="@+id/_read"
+            android:id="@+id/owner_read"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/_write"
+            app:layout_constraintTop_toTopOf="@+id/owner_read"
+            android:id="@+id/owner_write"
+            android:gravity="center" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/_execute"
+            app:layout_constraintTop_toTopOf="@+id/owner_read"
+            android:id="@+id/owner_execute"
+            android:gravity="center" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/owner_read"
+            app:layout_constraintTop_toBottomOf="@+id/owner_read"
+            android:id="@+id/group_read"
+            android:gravity="center" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/_write"
+            app:layout_constraintTop_toTopOf="@+id/group_read"
+            android:id="@+id/group_write"
+            android:gravity="center" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/_execute"
+            app:layout_constraintTop_toTopOf="@+id/group_read"
+            android:id="@+id/group_execute"
+            android:gravity="center" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/group_read"
+            app:layout_constraintTop_toBottomOf="@+id/group_read"
+            android:id="@+id/other_read"
+            android:gravity="center" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/_write"
+            app:layout_constraintTop_toTopOf="@+id/other_read"
+            android:id="@+id/other_write"
+            android:gravity="center" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/_execute"
+            app:layout_constraintTop_toTopOf="@+id/other_read"
+            android:id="@+id/other_execute"
+            android:gravity="center" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/_other"
+            android:text="@string/set_gid"
+            app:layout_constraintStart_toStartOf="@id/owner_read"
+            android:layout_marginTop="20dp"
+            android:id="@+id/set_gid"/>
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/owner_write"
+            android:text="@string/set_uid"
+            app:layout_constraintTop_toTopOf="@+id/set_gid"
+            android:id="@+id/set_uid"/>
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/owner_execute"
+            android:text="@string/set_sticky"
+            app:layout_constraintTop_toTopOf="@+id/set_gid"
+            android:id="@+id/set_sticky"/>
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/_owner"
+            app:layout_constraintTop_toBottomOf="@+id/set_gid"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/access_text"
+            android:text="@string/file_permission"
+            />
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/access_text"
+            app:layout_constraintEnd_toStartOf="@+id/_gid"
+            style="@style/Widget.XpFilter.TextInputLayout"
+            android:hint="@string/uid_descriptor"
+            android:id="@+id/_uid">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uid_et"
+                android:autofillHints="@string/input_content"
+                android:inputType="numberDecimal"
+                />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/access_text"
+            app:layout_constraintStart_toEndOf="@+id/_uid"
+            app:layout_constraintEnd_toEndOf="@+id/_execute"
+            style="@style/Widget.XpFilter.TextInputLayout"
+            android:hint="@string/gid_descriptor"
+            android:id="@+id/_gid">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gid_et"
+                android:autofillHints="@string/input_content"
+                android:inputType="numberDecimal"/>
+    </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

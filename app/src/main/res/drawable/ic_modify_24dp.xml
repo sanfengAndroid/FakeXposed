@@ -1,0 +1,21 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<vector android:height="24dp" android:viewportHeight="1024"
+    android:viewportWidth="1024" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#1296db" android:pathData="M786.43,380.61L593.92,196.37l-411.57,403.3 -71.68,257.42v0.39l261.91,-71.44 413.93,-405.43zM755.08,38.6l-103.19,100.98 193.22,183.53 100.04,-98.07a129.97,129.97 0,0 0,0 -186.45,136.43 136.43,0 0,0 -190.07,0zM39.38,901.75h945.23V1024H39.38v-122.25z"/>
+</vector>

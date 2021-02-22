@@ -1,0 +1,17 @@
+## This is the build configuration file
+
+# Android sign file path
+storeFile=string
+# Android sign file password
+storePassword=string
+# Android sign configuration key alias
+keyAlias=string
+# Android sign key password
+keyPassword=string
+
+# Android build target SDK
+targetSdk=int
+# Specify the currently build api level, the default is the latest version 30
+buildApi=int
+# Configure the lowest level of native library to print log, the default is 2
+logLevel=int

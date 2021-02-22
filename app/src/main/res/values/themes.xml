@@ -1,0 +1,78 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.XpFilter" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
+        <!--        <item name="colorPrimary">@color/purple_500</item>-->
+        <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
+
+        <!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+        <!--        <item name="colorSecondary">@color/teal_200</item>-->
+        <!--        <item name="colorSecondaryVariant">@color/teal_700</item>  -->
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+
+
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">?attr/colorControlHighlight</item>
+
+        <item name="materialCardViewStyle">@style/Widget.XpFilter.CardView</item>
+        <item name="materialButtonStyle">@style/Widget.XpFilter.Button</item>
+        <item name="toolbarStyle">@style/Widget.XpFilter.Toolbar</item>
+        <!--Material type attributes-->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.XpFilter.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.XpFilter.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.XpFilter.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.XpFilter.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.XpFilter.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.XpFilter.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.XpFilter.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.XpFilter.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.XpFilter.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.XpFilter.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.XpFilter.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.XpFilter.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.XpFilter.Overline</item>
+
+        <!--Material shape attributes-->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.XpFilter.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.XpFilter.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.XpFilter.LargeComponent</item>
+
+        <item name="large_corner_size">10dp</item>
+    </style>
+
+    <style name="Theme.XpFilter.DialogActivityTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:backgroundDimEnabled">true</item><!--模糊-->
+    </style>
+</resources>

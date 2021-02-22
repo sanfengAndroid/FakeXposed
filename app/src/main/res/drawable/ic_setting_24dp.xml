@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<vector android:height="24dp" android:viewportHeight="1024"
+    android:viewportWidth="1024" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#2c2c2c" android:pathData="M512.26,704c-108.8,0 -192,-83.2 -192,-192s83.2,-192 192,-192 192,83.2 192,192 -83.2,192 -192,192zM512.26,384c-70.4,0 -128,57.6 -128,128s57.6,128 128,128 128,-57.6 128,-128 -57.6,-128 -128,-128z"/>
+    <path android:fillColor="#2c2c2c" android:pathData="M640.26,1024h-256c-19.2,0 -32,-12.8 -32,-32L352.26,870.4c-25.6,-12.8 -51.2,-25.6 -70.4,-38.4l-102.4,64c-12.8,6.4 -32,6.4 -44.8,-12.8l-128,-224c-12.8,-19.2 -6.4,-38.4 12.8,-44.8l102.4,-64v-76.8l-102.4,-64c-19.2,-6.4 -25.6,-25.6 -12.8,-44.8l128,-224c6.4,-12.8 25.6,-19.2 44.8,-6.4l102.4,64c19.2,-12.8 44.8,-32 70.4,-38.4L352.26,32c0,-19.2 12.8,-32 32,-32h256c19.2,0 32,12.8 32,32v121.6c25.6,12.8 51.2,25.6 70.4,38.4l102.4,-64c12.8,-6.4 32,-6.4 44.8,12.8l128,224c12.8,19.2 6.4,38.4 -12.8,44.8l-102.4,64v76.8l102.4,64c12.8,6.4 19.2,25.6 12.8,44.8l-128,224c-6.4,12.8 -25.6,19.2 -44.8,12.8l-102.4,-64c-19.2,12.8 -44.8,32 -70.4,38.4L672.26,992c0,19.2 -12.8,32 -32,32zM416.26,960h192L608.26,851.2c0,-12.8 6.4,-25.6 19.2,-32 32,-12.8 64,-32 89.6,-51.2 12.8,-6.4 25.6,-6.4 38.4,0l96,57.6 96,-166.4 -96,-57.6c-12.8,-12.8 -19.2,-25.6 -12.8,-38.4 0,-19.2 6.4,-32 6.4,-51.2s0,-32 -6.4,-51.2c0,-12.8 6.4,-25.6 12.8,-32l96,-57.6 -96,-166.4 -96,57.6c-12.8,6.4 -25.6,6.4 -38.4,0 -25.6,-19.2 -57.6,-38.4 -89.6,-51.2 -12.8,-12.8 -19.2,-25.6 -19.2,-38.4L608.26,64h-192v108.8c0,12.8 -6.4,25.6 -19.2,32 -32,12.8 -64,32 -89.6,51.2 -12.8,6.4 -25.6,6.4 -38.4,0l-96,-51.2 -96,166.4 96,57.6c12.8,6.4 19.2,19.2 12.8,32 0,19.2 -6.4,32 -6.4,51.2 0,19.2 0,32 6.4,51.2 6.4,12.8 0,25.6 -12.8,32l-96,57.6 96,166.4 96,-57.6c12.8,-6.4 25.6,-6.4 38.4,0 25.6,19.2 57.6,38.4 89.6,51.2 12.8,6.4 19.2,19.2 19.2,32L416.26,960z"/>
+</vector>

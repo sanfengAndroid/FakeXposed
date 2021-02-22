@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<vector android:height="24dp" android:viewportHeight="1024"
+    android:viewportWidth="1024" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#FF000000" android:pathData="M570.96,509.07c-10.19,0 -20.43,10.24 -20.43,20.41 0,10.34 10.24,20.45 20.43,20.45 15.44,0 25.55,-10.11 25.55,-20.45 0,-10.17 -10.11,-20.41 -25.55,-20.41z"/>
+    <path android:fillColor="#FF000000" android:pathData="M683.3,509.07c-10.11,0 -20.3,10.24 -20.3,20.41 0,10.34 10.19,20.45 20.3,20.45 15.31,0 25.55,-10.11 25.55,-20.45 0,-10.17 -10.24,-20.41 -25.55,-20.41z"/>
+    <path android:fillColor="#FF000000" android:pathData="M361.59,360.95c-15.29,0 -30.75,10.09 -30.75,25.47 0,15.31 15.46,25.55 30.75,25.55 15.31,0 25.48,-10.24 25.48,-25.55 0,-15.38 -10.17,-25.47 -25.48,-25.47z"/>
+    <path android:fillColor="#FF000000" android:pathData="M504.55,411.97c15.36,0 25.55,-10.24 25.55,-25.55 0,-15.38 -10.19,-25.47 -25.55,-25.47 -15.31,0 -30.69,10.09 -30.69,25.47 0,15.31 15.39,25.55 30.69,25.55z"/>
+    <path android:fillColor="#FF000000" android:pathData="M512.27,31.7c-263.53,0 -477.4,213.75 -477.4,477.36s213.87,477.36 477.4,477.36c263.56,0 477.33,-213.75 477.33,-477.36s-213.77,-477.36 -477.33,-477.36zM427.95,621.53c-25.5,0 -45.98,-5.2 -71.54,-10.24l-71.4,35.81 20.41,-61.46c-51.1,-35.72 -81.72,-81.79 -81.72,-137.86 0,-97.18 91.96,-173.69 204.25,-173.69 100.41,0 188.38,61.11 206.07,143.4 -6.48,-0.73 -13.05,-1.19 -19.66,-1.19 -97.03,0 -173.63,72.39 -173.63,161.63 0,14.83 2.3,29.14 6.29,42.79 -6.31,0.5 -12.66,0.81 -19.07,0.81zM729.21,693.06l15.39,51.06 -56.02,-30.69c-20.43,5.12 -40.96,10.24 -61.29,10.24 -97.18,0 -173.71,-66.41 -173.71,-148.2 0,-81.66 76.53,-148.2 173.71,-148.2 91.74,0 173.48,66.54 173.48,148.2 -0,46.05 -30.54,86.85 -71.56,117.58z"/>
+</vector>

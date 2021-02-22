@@ -1,0 +1,189 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<resources>
+    <string name="app_name">FakeXposed</string>
+    <string name="settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+    <string name="filter_system_app">Filter system app</string>
+    <string name="search">search</string>
+    <string name="all_pkg">All App</string>
+    <string name="data_model_name_load_class">Class hiding</string>
+    <string name="data_model_name_statck_element">Stack class hiding</string>
+    <string name="data_model_name_application_package">App hiding</string>
+    <string name="data_model_name_system_prop">Property hiding</string>
+    <string name="data_model_name_system_env">Environment hiding</string>
+    <string name="data_model_name_global_system_prop">SystemProperties hiding</string>
+    <string name="data_model_name_component_key">Component hiding</string>
+    <string name="data_model_name_global_get_int">Global property hiding</string>
+    <string name="data_model_name_runtime_exec">Runtime hiding</string>
+    <string name="data_model_name_nothing">nothing</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_item_tip">Are you sure you want to delete the data?</string>
+    <string name="add_item">Add item data</string>
+    <string name="tip_load_class">Shielding method: Hook\n\nShielding point: Class.forname, ClassLoader.loadClass method\n\nShielding rule: Keyword contains, case sensitive\n\nnote: Dynamically loaded classes can be blocked, direct references cannot be blocked temporarily</string>
+    <string name="tip_stack_element">Shielding method: Hook\n\nShielding point: Throwable.getOurStackTrace(Android 7 above)/Throwable.getInternalStackTrace\n\nShielding rule: Keyword contains, case sensitive\n\nnote: Only match the class name in the stack, if found, delete the element</string>
+    <string name="tip_app_package">Shielding method: Dynamic proxy\n\nShielding point: PackageManager related method\n\nShielding rule: Package name exactly matches\n\nnote: Directly hide PackageManager query results on the blacklist</string>
+    <string name="tip_system_property">Shielding method: Delete directly\n\nShielding point: System.getProperty method\n\nShielding rule: The property name exactly matches\n\nnote: Usually Java properties are not used, so delete the blacklist properties directly</string>
+    <string name="tip_system_environment">Shielding method: Hook replace\n\nShielding point: System.getenv method\n\nShielding rule: The environment variable name matches exactly, and the variable value is replaced by a regular expression\n\nnote: Native intercept callback java processing</string>
+    <string name="tip_global_system_properties">"Shielding method: Native Hook\n\nShielding point: native system property method\n\nShielding rule: The properties name exactly matches, the property value is replaced \n\nnote: Non-string type values will be converted to the corresponding type, you need to ensure that the string value is legal, otherwise it will cause native exception "</string>
+    <string name="tip_component_keyword">Shielding method: Dynamic proxy\n\nShielding point: ActivityManager, ActivityTaskManager some methods\n\nShielding rule: Keyword match\n\nnote: Prevent access to the current application service, process, task, component name containing keywords</string>
+    <string name="tip_global_getint">Shielding method: Hook\n\nShielding point: Global.getString method\n\nShielding rule: Property name exactly matches the value of the replacement property\n\nnote: Some debugging or development attributes need to be corrected, such as adb_enabled to determine whether adb is enabled. Non-string types need to be converted to the corresponding type by themselves, otherwise it will not take effect</string>
+    <string name="tip_runtime_exec">Shielding method: Hook\n\nShielding point: UNIXProcess(Android 7 above)/ProcessManager.exec method\n\nShielding rule: The command name matches exactly, the parameter can be replaced, the input/output/error flow is fixed\n\nnote: Hook Runtime.exec is a more low-level method that intercepts commands and replaces parameters. At present, the flow is only fixed, and replacement is not yet implemented. The replacement of the flow is the proxy original flow. Currently, the C-layer interception cannot get the correct return. If the C-layer interception is enabled Will cause all commands that call Runtime.exec to fail</string>
+    <string name="add_data_success">Add data success</string>
+    <string name="uninstall">Uninstall</string>
+    <string name="input_content">Input content</string>
+    <string name="input_empty_content">Input content is empty</string>
+    <string name="input_class_name_illegal">The input class name is invalid</string>
+    <string name="input_invalid_property_name">The input invalid property name</string>
+    <string name="add_item_key_system_property">Key</string>
+    <string name="add_item_value_system_property">Value</string>
+    <string name="add_item_key_name">Name</string>
+    <string name="add_item_key_component_keyword">Process/Task keyword</string>
+    <string name="add_item_key_property">Property name</string>
+    <string name="add_item_value_property">Property value</string>
+    <string name="input_illegal_number">The input an illegal number</string>
+    <string name="old">Old</string>
+    <string name="new_">New</string>
+    <string name="cmd">Cmd</string>
+    <string name="args">Args</string>
+    <string name="input_stream">InputStream</string>
+    <string name="output_stream">OutputStream</string>
+    <string name="error_stream">ErrorStream</string>
+    <string name="add_item_key_runtime_exec_name">Command name</string>
+    <string name="add_item_key_runtime_exec_args">Command parameters</string>
+    <string name="add_item_key_replace_args">Replacement parameters</string>
+    <string name="add_item_key_input_stream_fixed">Fixed input stream</string>
+    <string name="add_item_key_output_stream_fixed">Fixed output stream</string>
+    <string name="add_item_key_error_stream_fixed">Fixed error stream</string>
+    <string name="add_item_key_runtime_exec_old_name">Old command name</string>
+    <string name="null_value">null</string>
+    <string name="add_item_key_system_env">Environment variable name</string>
+    <string name="add_item_value_system_env">Regular expression replacement value, multiple regular line breaks</string>
+    <string name="data_model_name_file_blacklist">File hiding</string>
+    <string name="tip_file_blacklist">Shielding method: Native Hook\n\nShielding point: fopen,open etc. method\n\nShielding rule: The file name matches exactly, the absolute path starts with ‘/’\n\nnote: Direct soft interrupt system calls cannot be intercepted</string>
+    <string name="data_model_name_symbol_blacklist">Symbol hiding</string>
+    <string name="tip_symbol_blacklist">Shielding method: Native Hook\n\nShielding point: dlsym function\n\nShielding rule: Symbol name matches exactly\n\nnote: Only use the dlsym method to dynamically obtain symbols to block, manual analysis such as maps files or soinfo cannot be blocked</string>
+    <string name="data_model_name_maps_blacklist">Maps hiding</string>
+    <string name="tip_maps_blacklist">Shielding method: Native Hook\n\nShielding point:  open etc. function\n\nShielding rule: Keyword match, delete line or replace keywords \n\nnote: File redirection replacement</string>
+    <string name="add_item_key_file_blacklist">Full file name, case sensitive</string>
+    <string name="add_item_key_symbol_blacklist">Dlsym shield symbol name</string>
+    <string name="remove_line">Remove line</string>
+    <string name="modify_line">Modify line</string>
+    <string name="keyword">Keyword</string>
+    <string name="replace_value">Replacement value</string>
+    <string name="save">SAVE</string>
+    <string name="data_has_changed">The data has changed, are you sure you want to exit?</string>
+    <string name="edit_item_tip">Do you want to modify the data?</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="about_me">About</string>
+    <string name="setting_tip">Tip</string>
+    <string name="status_normal">The plugin is activated</string>
+    <string name="status_warning">The plugin is not activated</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="use_notice">"Root mode needs to install configuration files, non-Root mode needs to set app self-starting permissions, most of the functions rely on Native Hook (see settings introduction) "</string>
+    <string name="native_hook_tip">"Its Native Hook uses a similar ld_proload mode to dynamically set the Hook module as a preload library, so internally modify the data structure of the linker to manually add the module to the preload list. After the addition is successful, you need to relocate the key system library to import the symbolic address Point to the Hook module, and the import table of the module loaded after the Hook module takes effect will be redirected.\nOf course there are corresponding disadvantages\n     1. Not inline hook intercepts all calls.\n     2. The system library loaded prematurely needs to be manually called the relocation library to be intercepted.\n     3. The syscall function has been intercepted internally. If the soft interrupt is used to directly call the system, it cannot be intercepted. Of course, the inline Hook cannot be done.\n     4. At present, the Native layer interception of java execvp is still unable to succeed. If modified, the normal exit status of the child process will not always be obtained. In fact, the child process has not exited. "</string>
+    <string name="hook_option">Hook Option</string>
+    <string name="block_java_execvp">Block Java execpe interception</string>
+    <string name="block_java_execvp_true">Intercepting Java execpe calls will cause all Runtime.exec to be executed unsuccessfully</string>
+    <string name="block_java_execvp_false">Ignore Java execpe interception, unable to intercept Runtime.exec</string>
+    <string name="native_hook_descriptor">About native hook description</string>
+    <string name="about_app">About application</string>
+    <string name="appname_empty">NULL</string>
+    <string name="unknown">Unknown</string>
+    <string name="app_package">Application package</string>
+    <string name="delete">Delete</string>
+    <string name="soft_reboot">Soft reboot</string>
+    <string name="soft_reboot_error">Soft reboot error.Please manual reboot</string>
+    <string name="confirm_reboot">Are you sure about soft restart?</string>
+    <string name="filter_xposed_module">Filter other xposed module</string>
+    <string name="action_filter_xposed_app">Filter xposed app</string>
+    <string name="disable">Disable</string>
+    <string name="show_system">Show system app</string>
+    <string name="show_non_system">Show non-system app</string>
+    <string name="show_xposed">Show xposed app</string>
+    <string name="show_non_xposed">Show non-xposed app</string>
+
+    <string name="error_write_file">Write file error: %1$s</string>
+    <string name="error_create_dir">Failed to create directory, unable to continue writing file: %1$s</string>
+    <string name="error_no_root_permission">No root permission</string>
+    <string name="error_execute_cmd">Failed to execute command</string>
+    <string name="error_execute_cmd_result">The result of executing the command is incorrect: %1$s</string>
+    <string name="data_model_name_file_redirect">File redirection</string>
+    <string name="tip_file_redirect">Shielding method: Native Hook\n\nShielding point: fopen, open etc. function\n\nShielding rule: File name/directory name exactly matches\n\nnote: Native redirects the old path to the new path, first judges the blacklist and then judges the path redirection, the directory only redirects the first-level directory, and the second-level directory needs to be added again</string>
+    <string name="notice_add_file_redirect">"Add file/directory redirection.\nDirectory can only be added to the first level, and the second level directory needs to be added again.\nDue to permission issues, it may not be able to correctly identify whether it is a file or a directory. You may need to manually check/cancel the directory option. If you cannot get the path when opening the file, you need to manually enter the path. "</string>
+    <string name="dir">Directory</string>
+    <string name="src_path">Original path</string>
+    <string name="dst_path">Redirect path</string>
+    <string name="file_type_inconsistent">Inconsistent file type</string>
+    <string name="data_model_name_file_access">File access control</string>
+    <string name="tip_file_access">"Shielding method: Native Hook\n\nShielding point: stat etc. function\n\nShielding rule: File name/directory name exactly matches\n\nnote: The priority is after the redirection path, so if the file is redirected, the new path after the redirection must be provided, and the gid, uid, and access permissions of the file must be changed. "</string>
+    <string name="permission">Permission</string>
+    <string name="owner">Owner</string>
+    <string name="group">Group</string>
+    <string name="other">Other</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="execute">Execute</string>
+    <string name="uid_descriptor">Uid by default -1</string>
+    <string name="gid_descriptor">Gid by default -1</string>
+    <string name="set_gid">Set gid</string>
+    <string name="set_uid">Set uid</string>
+    <string name="set_sticky">Set sticky</string>
+    <string name="file_permission">File permission: %1$s</string>
+    <string name="sync_configuration">Sync configuration</string>
+    <string name="github">Github</string>
+    <string name="donate">Donate</string>
+    <string name="alipay">Alipay</string>
+    <string name="wechat">Wechat</string>
+    <string name="paypal">Paypal</string>
+    <string name="donate_other">Other</string>
+    <string name="open_system_hook">Please activate the system process hook and try again.</string>
+    <string name="sync_success">Sync configuration is successful</string>
+    <string name="app_use_notice">The open source of this software is forever free for research and learning. Please do not use it for commercial purposes. It is strictly forbidden to use this software for all actions that violate current Chinese laws. Otherwise, all legal responsibilities and all consequences shall be borne by the user, and the development The person has nothing to do. This software may have compatibility issues, please pay attention to backup when opening the system process hook.</string>
+    <string name="install_hook_configuration">Install Hook configuration file(root)</string>
+    <string name="success_install_hook_configuration">Successful installation of Hook configuration file</string>
+    <string name="success_uninstall_hook_configuration">Successfully uninstalled Hook configuration file</string>
+    <string name="hook_configuration_update">Hook configuration has been updated and needs to be synchronized</string>
+    <string name="sync">Synchronize</string>
+    <string name="wechat_public">Wechat Public</string>
+    <string name="copy_wechat_public_tip">It has been copied to the clipboard, please search in WeChat.</string>
+    <string name="wechat_public_descriptor">Follow the author\'s public account</string>
+    <string name="version">Version</string>
+    <string name="share">Share</string>
+    <string name="share_app_text">Bypass Xposed detection, monitor files, system calls, permanent open source and free, support the latest version of Android Come and see it. https://github.com/sanfengAndroid/FakeXposed</string>
+    <string name="update">Update</string>
+    <string name="ignore">Ignore</string>
+    <string name="has_latest_version">Already the latest version.</string>
+    <string name="property_value_too_long">The property value is too long to exceed 91 characters</string>
+    <string name="fakexposed_sources">FakeXposed Source</string>
+    <string name="fakelinker_sources">fake-linker source</string>
+    <string name="fakexposed_article">FakeXposed analyze</string>
+    <string name="fakelinker_article">fake-linker analyze</string>
+    <string name="fakelinker_source_link" translatable="false">https://github.com/sanfengAndroid/fake-linker</string>
+    <string name="fakelinker_article_link" translatable="false">https://sanfengandroid.github.io/2021/01/10/modify-linker-to-implement-plt-hook/</string>
+    <string name="fakexposed_source_link" translatable="false">https://github.com/sanfengAndroid/FakeXposed</string>
+    <string name="fakexposed_article_link" translatable="false">https://sanfengandroid.github.io/2021/02/20/fakexposed-principle-analyze/</string>
+</resources>

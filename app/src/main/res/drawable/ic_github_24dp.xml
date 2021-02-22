@@ -1,0 +1,21 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<vector android:height="24dp" android:viewportHeight="1024"
+    android:viewportWidth="1024" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#231F20" android:pathData="M512.47,98.74c-236.05,-2.4 -429.41,187.03 -432,423.24 0.89,183.91 120.18,346.28 295.33,402.02 21.6,3.93 29.45,-9.04 29.45,-20.44v-71.92c-120.17,25.55 -145.7,-56.59 -145.7,-56.59a112.36,112.36 0,0 0,-47.91 -62.09c-39.27,-25.94 3.14,-25.55 3.14,-25.55a90.7,90.7 0,0 1,65.98 43.62c25.36,43.99 81.26,59.55 125.68,34.98a91.57,91.57 0,0 1,27.49 -56.59c-95.82,-10.61 -196.36,-46.77 -196.36,-209.07a163.13,163.13 0,0 1,43.59 -114.36,148.65 148.65,0 0,1 4.32,-111.61c15.9,-35.22 36.53,-11.4 117.82,43.23a419.24,419.24 0,0 1,216 0c82.47,-54.63 117.82,-43.23 117.82,-43.23a148.66,148.66 0,0 1,4.32 111.61,163.15 163.15,0 0,1 45.94,113.57c0,162.7 -101.32,198.46 -196.36,209.07a98.27,98.27 0,0 1,29.45 78.59v115.93c0,13.75 7.86,24.76 29.46,20.43 174.63,-56.07 293.47,-218.11 294.55,-401.62C941.88,285.78 748.52,96.34 512.47,98.74"/>
+</vector>

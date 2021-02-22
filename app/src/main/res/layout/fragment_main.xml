@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            app:cardCornerRadius="?attr/large_corner_size"
+            android:id="@+id/status">
+
+        <com.google.android.material.circularreveal.CircularRevealLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <com.google.android.material.circularreveal.CircularRevealLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="?attr/colorSecondary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="84dp"
+                        android:layout_height="84dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/status_icon" />
+            </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/status_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/status_warning"
+                    android:textColor="?attr/colorAccent" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/install_hook_configuration"
+                    android:id="@+id/install_hook_configuration"
+                    style="@style/Widget.XpFilter.Switch"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
+        </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/status"
+            app:cardCornerRadius="?attr/large_corner_size"
+            android:id="@+id/update_card"
+            android:visibility="gone">
+
+        <com.google.android.material.circularreveal.CircularRevealLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/hook_configuration_update" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sync"
+                    android:id="@+id/sync_hook_configuration"
+                    style="@style/Widget.XpFilter.Button.TextButton" />
+        </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/update_card"
+            app:cardCornerRadius="?attr/large_corner_size"
+            android:id="@+id/use_tip_card">
+
+        <com.google.android.material.circularreveal.CircularRevealLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:orientation="horizontal">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:text="@string/use_notice" />
+
+            <com.google.android.material.button.MaterialButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dismiss"
+                    android:id="@+id/use_tip_dismiss"
+                    style="@style/Widget.XpFilter.Button.TextButton" />
+        </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:minHeight="?android:attr/listPreferredItemHeight"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/use_tip_card"
+            app:cardCornerRadius="?attr/large_corner_size"
+            android:id="@+id/use_native_tip_card">
+
+        <com.google.android.material.circularreveal.CircularRevealLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_use_notice"
+                    android:paddingTop="4dp" />
+        </com.google.android.material.circularreveal.CircularRevealLinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/use_native_tip_card"
+            app:layout_constraintEnd_toStartOf="@+id/fakexpose_article"
+            app:layout_constraintTop_toBottomOf="@+id/use_native_tip_card"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="@string/fakexposed_sources"
+            android:tag="@string/fakexposed_source_link"
+            android:id="@+id/fakexpose_sources"
+            android:autoLink="web" />
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/fakexpose_sources"
+            app:layout_constraintTop_toBottomOf="@+id/use_native_tip_card"
+            app:layout_constraintEnd_toEndOf="@+id/use_native_tip_card"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:tag="@string/fakexposed_article_link"
+            android:text="@string/fakexposed_article"
+            android:id="@+id/fakexpose_article"
+            android:autoLink="web"/>
+
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/use_native_tip_card"
+            app:layout_constraintEnd_toStartOf="@+id/fakexpose_article"
+            app:layout_constraintTop_toBottomOf="@+id/fakexpose_sources"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="@string/fakelinker_sources"
+            android:tag="@string/fakelinker_source_link"
+            android:id="@+id/fakelinker_sources"
+            android:autoLink="web"/>
+    <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/fakexpose_sources"
+            app:layout_constraintTop_toBottomOf="@+id/fakexpose_sources"
+            app:layout_constraintEnd_toEndOf="@+id/use_native_tip_card"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:text="@string/fakelinker_article"
+            android:tag="@string/fakelinker_article_link"
+            android:id="@+id/fakelinker_article"
+            android:autoLink="web"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

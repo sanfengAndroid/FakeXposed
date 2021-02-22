@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<resources>
+    <string name="filter_system_app">系统App过滤</string>
+    <string name="search">搜索</string>
+    <string name="all_pkg">全局设置</string>
+    <string name="settings">设置</string>
+    <string name="data_model_name_load_class">类隐藏</string>
+    <string name="data_model_name_statck_element">堆栈类隐藏</string>
+    <string name="data_model_name_application_package">应用隐藏</string>
+    <string name="data_model_name_system_prop">属性隐藏</string>
+    <string name="data_model_name_system_env">环境变量隐藏</string>
+    <string name="data_model_name_global_system_prop">全局属性隐藏</string>
+    <string name="data_model_name_component_key">"组件隐藏 "</string>
+    <string name="data_model_name_global_get_int">Global属性隐藏</string>
+    <string name="data_model_name_runtime_exec">Runtime执行隐藏</string>
+    <string name="data_model_name_file_blacklist">文件隐藏</string>
+    <string name="data_model_name_symbol_blacklist">动态符号隐藏</string>
+    <string name="data_model_name_maps_blacklist">Maps隐藏</string>
+
+    <string name="data_model_name_nothing">nothing</string>
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="delete_item_tip">确定删除该项数据吗?</string>
+    <string name="add_item">添加一项数据</string>
+
+    <string name="tip_load_class">屏蔽方式:Hook\n\n屏蔽点:Class.forName、ClassLoader.loadClass方法\n\n屏蔽规则:关键字包含，区分大小写\n\n说明:动态加载类可以被屏蔽，直接引用暂无法屏蔽</string>
+    <string name="tip_stack_element">屏蔽方式:Hook\n\n屏蔽点:Throwable.getOurStackTrace(Android 7以上)/Throwable.getInternalStackTrace方法\n\n屏蔽规则:关键字包含，区分大小写\n\n说明:只匹配堆栈中的类名，如果找到则删除该元素</string>
+    <string name="tip_app_package">屏蔽方式:动态代理\n\n屏蔽点:PackageManager相关方法\n\n屏蔽规则:包名完全匹配\n\n说明:直接隐藏PackageManager对黑名单的查询结果</string>
+    <string name="tip_system_property">屏蔽方式:直接清除\n\n屏蔽点:System.getProperty方法\n\n屏蔽规则:属性名完全匹配\n\n说明:通常Java层属性并没有被使用到，因此直接删除掉黑名单属性</string>
+    <string name="tip_global_system_properties">屏蔽方式: Native Hook\n\n屏蔽点: native对应属性获取方法\n\n屏蔽规则:属性名完全匹配，属性值替换\n\n说明:非字符串类型值将会转换为对应的类型，需自己保证字符串值合法，否者会导致native异常崩溃</string>
+    <string name="tip_component_keyword">屏蔽方式:动态代理\n\n屏蔽点:ActivityManager、ActivityTaskManager系列方法\n\n屏蔽规则:关键字匹配\n\n说明:阻止获取包含关键字的当前应用服务、进程、任务、组件名</string>
+    <string name="tip_global_getint">屏蔽方式:Hook\n\n屏蔽点:Global.getString方法\n\n屏蔽规则:属性名完全匹配，属性值替换\n\n说明:一些调试或开发属性需要修正，如adb_enabled判断adb开启等等，非字符串类型需要自己保证能转换为对应类型，否者不生效</string>
+    <string name="tip_runtime_exec">屏蔽方式:Hook\n\n屏蔽点:UNIXProcess(Android 7以上)/ProcessManager.exec方法\n\n屏蔽规则:命令名完全匹配，参数可选替换，输入/输出/错误流固定\n\n说明:Hook Runtime.exec更加底层方法，拦截命令并替换参数，目前流只实现固定，暂未实现替换，流的替换是代理原来的流，目前C层拦截得不到正确的返回，如果开启C层拦截会导致所有调用Runtime.exec的命令都执行失败</string>
+    <string name="tip_file_blacklist">屏蔽方式:Native函数重定向\n\n屏蔽点:fopen，open等方法\n\n屏蔽规则:文件名完全匹配，绝对路径以 ‘/’ 开头\n\n说明: 直接软中断系统调用则无法拦截</string>
+    <string name="tip_symbol_blacklist">屏蔽方式:Native函数重定向\n\n屏蔽点:dlsym方法\n\n屏蔽规则:符号名完全匹配\n\n说明:采用dlsym方法动态获取符号的方式才能屏蔽，手动解析如maps文件或soinfo等无法屏蔽</string>
+    <string name="tip_maps_blacklist">屏蔽方式:Native Hook\n\n屏蔽点:打开文件相关方法\n\n屏蔽规则:关键字匹配，删除行或替换关键字\n\n说明:文件重定向替换</string>
+    <string name="tip_system_environment">屏蔽方式: Native Hook\n\n屏蔽点: getenv function\n\n屏蔽规则:环境变量名完全匹配，变量值正则替换\n\n说明: native拦截回调java处理</string>
+    <string name="tip_file_redirect">屏蔽方式:Native函数重定向\n\n屏蔽点:fopen，open等方法\n\n屏蔽规则:文件名/目录名完全匹配\n\n说明:Native重定向旧路径到新路径，先判断黑名单再判断路径重定向，目录只重定向一级目录，二级目录需要再次添加</string>
+    <string name="tip_file_access">屏蔽方式:Native函数重定向\n\n屏蔽点:stat系列方法\n\n屏蔽规则:文件名/目录名完全匹配\n\n说明:优先级在重定向路径之后，因此如果文件被重定向则要提供重定向后的新路径，更改文件的gid, uid,访问权限等</string>
+
+    <string name="add_data_success">添加数据成功</string>
+    <string name="uninstall">未安装</string>
+    <string name="input_content">输入内容</string>
+    <string name="input_empty_content">输入内容为空</string>
+    <string name="input_class_name_illegal">输入类名不合法</string>
+    <string name="input_invalid_property_name">输入的属性名不合法</string>
+    <string name="add_item_key_system_property">SystemProperty属性名</string>
+    <string name="add_item_value_system_property">SystemProperty属性值</string>
+    <string name="add_item_key_name">名称</string>
+    <string name="add_item_key_component_keyword">进程/任务屏蔽关键字</string>
+    <string name="add_item_key_property">属性名</string>
+    <string name="add_item_value_property">属性值</string>
+    <string name="input_illegal_number">输入不是合法的数字</string>
+    <string name="old">旧</string>
+    <string name="new_">新</string>
+    <string name="cmd">命令</string>
+    <string name="args">参数</string>
+    <string name="input_stream">输入流</string>
+    <string name="output_stream">输出流</string>
+    <string name="error_stream">错误流</string>
+    <string name="add_item_key_runtime_exec_name">新命令名</string>
+    <string name="add_item_key_runtime_exec_args">命令参数</string>
+    <string name="add_item_key_replace_args">替换参数</string>
+    <string name="add_item_key_input_stream_fixed">固定输入流</string>
+    <string name="add_item_key_output_stream_fixed">固定输出流</string>
+    <string name="add_item_key_error_stream_fixed">固定错误流</string>
+    <string name="add_item_key_runtime_exec_old_name">旧命令名</string>
+    <string name="null_value">null</string>
+    <string name="add_item_key_system_env">环境变量名称</string>
+    <string name="add_item_value_system_env">正则表达式替换值,多个正则换行分割</string>
+    <string name="add_item_key_file_blacklist">文件完整名称,区分大小写</string>
+    <string name="add_item_key_symbol_blacklist">dlsym符号名过滤查找</string>
+    <string name="remove_line">删除行</string>
+    <string name="modify_line">修改行</string>
+    <string name="keyword">关键字</string>
+    <string name="replace_value">替换值</string>
+    <string name="save">保存</string>
+    <string name="data_has_changed">数据已发生改变,确认要退出吗?</string>
+    <string name="edit_item_tip">确定要修改数据吗?</string>
+    <string name="app_name">Xposed伪装器</string>
+    <string name="navigation_drawer_open">开启导航抽屉栏</string>
+    <string name="navigation_drawer_close">关闭导航抽屉栏</string>
+    <string name="about_me">关于</string>
+    <string name="setting_tip">说明</string>
+    <string name="status_normal">插件已激活</string>
+    <string name="status_warning">插件未激活</string>
+    <string name="dismiss">忽略</string>
+    <string name="use_notice">Root模式需要安装配置文件,非Root模式需要设置应用自启动权限,大部分功能依赖Native Hook(查看设置介绍)</string>
+    <string name="hook_option">Hook配置</string>
+    <string name="block_java_execvp">屏蔽Java execvp拦截</string>
+    <string name="block_java_execvp_true">开启Java execvp拦截,会导致Runtime.exec执行不成功</string>
+    <string name="block_java_execvp_false">忽略Java execpe拦截,无法拦截Runtime.exec</string>
+    <string name="native_hook_descriptor">关于native hook描述</string>
+    <string name="about_app">关于应用</string>
+    <string name="native_hook_tip">其Native Hook采用类似ld_proload模式将Hook模块动态设置为预加载库，因此内部修改linker的数据结构手动将模块添加到预加载列表中，添加成功后需要重新重定位关键的系统库使其导入符号地址指向Hook模块，在Hook模块生效后再加载的模块其导入表都会被重定向。\n当然也有对应的缺点\n    1. 不是内联Hook拦截所有调用\n    2. 过早加载的系统库要实施拦截需要手动调用重定位库\n    3. 内部已拦截syscall函数，如果采用软中断直接系统调用则无法拦截，当然内联Hook也无法做到\n    4. 目前Native层拦截java execvp还无法成功，如果修改则始终得不到正常的子进程退出状态，事实上子进程一直未退出</string>
+    <string name="appname_empty">NULL</string>
+    <string name="unknown">未知版本名</string>
+    <string name="app_package">应用包名</string>
+    <string name="delete">删除</string>
+    <string name="soft_reboot">软重启</string>
+    <string name="soft_reboot_error">软重启失败,请手动重启</string>
+    <string name="confirm_reboot">您确定要软重启吗?</string>
+    <string name="filter_xposed_module">过滤非自身Xposed模块</string>
+    <string name="action_filter_xposed_app">过滤Xposed应用</string>
+    <string name="disable">关闭</string>
+    <string name="show_system">显示系统应用</string>
+    <string name="show_non_system">显示非系统应用</string>
+    <string name="show_xposed">显示Xposed应用</string>
+    <string name="show_non_xposed">显示非Xposed应用</string>
+
+    <string name="error_write_file">写文件错误: %1$s</string>
+    <string name="error_create_dir">创建目录失败,无法继续写文件: %1$s</string>
+    <string name="error_no_root_permission">没有Root权限</string>
+    <string name="error_execute_cmd">执行命名失败</string>
+    <string name="error_execute_cmd_result">执行命令结果错误: %1$s</string>
+    <string name="data_model_name_file_redirect">文件重定向</string>
+    <string name="notice_add_file_redirect">添加文件/目录重定向\n目录只能添加一级,二级目录需要再次添加\n由于权限问题可能无法正确识别是文件还是目录,可能需要手动勾选/取消目录选项,打开文件无法获取路径则需要手动输入路径</string>
+    <string name="dir">目录</string>
+    <string name="src_path">原始路径</string>
+    <string name="dst_path">重定向路径</string>
+    <string name="file_type_inconsistent">文件类型不一致</string>
+    <string name="data_model_name_file_access">文件权限控制</string>
+    <string name="permission">权限</string>
+    <string name="owner">所有者</string>
+    <string name="group">用户组</string>
+    <string name="other">其它</string>
+    <string name="read">读</string>
+    <string name="write">写</string>
+    <string name="execute">执行</string>
+    <string name="uid_descriptor">uid 默认-1</string>
+    <string name="gid_descriptor">gid 默认-1</string>
+    <string name="set_gid">设置Gid</string>
+    <string name="set_uid">设置Uid</string>
+    <string name="set_sticky">粘滞</string>
+    <string name="file_permission">文件权限: %1$s</string>
+    <string name="sync_configuration">同步配置</string>
+    <string name="github">查看源码</string>
+    <string name="donate">赞助支持</string>
+    <string name="alipay">支付宝</string>
+    <string name="wechat">微信</string>
+    <string name="paypal">Paypal</string>
+    <string name="donate_other">其它方式</string>
+    <string name="open_system_hook">请先激活system进程Hook后重试</string>
+    <string name="sync_success">同步配置成功</string>
+    <string name="app_use_notice">本软件开源永久免费仅限于研究学习，请勿用于商业用途，严禁将本软件用于一切与中国现行法律相违背的一切行为，否者一切法律责任及所有后果均由使用方承担，与开发者无关。本软件可能会有兼容性问题，开启系统进程Hook时请注意备份。</string>
+    <string name="install_hook_configuration">安装Hook配置文件(root)</string>
+    <string name="success_install_hook_configuration">安装Hook配置文件成功</string>
+    <string name="success_uninstall_hook_configuration">卸载Hook配置文件成功</string>
+    <string name="hook_configuration_update">Hook配置已更新,需要同步</string>
+    <string name="sync">同步</string>
+    <string name="wechat_public">公众号</string>
+    <string name="copy_wechat_public_tip">已复制到剪切板(sanfengAndroid逆向安全),请到微信中搜索</string>
+    <string name="wechat_public_descriptor">关注作者公众号->sanfengAndroid逆向安全</string>
+    <string name="version">版本</string>
+    <string name="share">分享</string>
+    <string name="share_app_text">绕过Xposed检测,监听文件，系统调用，FakeXposed永久开源免费,支持Android最新版本快来看看吧! https://github.com/sanfengAndroid/FakeXposed</string>
+    <string name="update">更新</string>
+    <string name="ignore">忽略</string>
+    <string name="has_latest_version">已经是最新版本了</string>
+    <string name="property_value_too_long">属性值太长,超过最大限度91字符</string>
+    <string name="fakexposed_sources">FakeXposed源码</string>
+    <string name="fakelinker_sources">fake-linker源码</string>
+    <string name="fakexposed_article">FakeXposed分析</string>
+    <string name="fakelinker_article">fake-linker分析</string>
+
+</resources>

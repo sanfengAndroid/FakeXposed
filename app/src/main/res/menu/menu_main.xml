@@ -1,0 +1,76 @@
+<!--
+  ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.sanfengandroid.fakexposed.ui.activties.MainActivity">
+
+    <item
+            android:id="@+id/action_search"
+            android:title="@string/search"
+            app:showAsAction="ifRoom"
+            app:actionViewClass="androidx.appcompat.widget.SearchView" />
+    <item
+            android:id="@+id/action_filter_system_app"
+            android:orderInCategory="100"
+            android:title="@string/filter_system_app"
+            app:showAsAction="never">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/disable_system"
+                        android:title="@string/disable" />
+                <item
+                        android:id="@+id/filter_system"
+                        android:title="@string/show_system" />
+                <item
+                        android:id="@+id/filter_non_system"
+                        android:title="@string/show_non_system" />
+            </group>
+        </menu>
+    </item>
+    <item
+            android:id="@+id/action_filter_xposed_app"
+            android:orderInCategory="100"
+            android:title="@string/action_filter_xposed_app"
+            app:showAsAction="never">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                        android:id="@+id/disable_xposed"
+                        android:title="@string/disable" />
+                <item
+                        android:id="@+id/filter_xposed"
+                        android:title="@string/show_xposed" />
+                <item
+                        android:id="@+id/filter_non_xposed"
+                        android:title="@string/show_non_xposed" />
+            </group>
+        </menu>
+
+    </item>
+    <item
+            android:id="@+id/soft_reboot"
+            android:title="@string/soft_reboot"
+            app:showAsAction="never" />
+    <item
+            android:id="@+id/action_test"
+            android:orderInCategory="100"
+            android:title="test"
+            app:showAsAction="never" />
+</menu>
