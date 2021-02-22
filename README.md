@@ -3,6 +3,11 @@
 
 Chinese document click [here](README_CN.md)
 
+## QQ Group [1042999608](https://jq.qq.com/?_wv=1027&k=T2uqtjjE)
+- Since there may be many problems at present, Q group can be added to facilitate communication
+
+    ![](https://cdn.jsdelivr.net/gh/sanfengAndroid/sanfengAndroid.github.io@main/images/qq_group.jpg)
+
 ## Project description
 Use [fake-linker](https://github.com/sanfengAndroid/fake-linker) in combination with `Xposed` to provide `Java` and `Native` bidirectional shielding of `Xposed` detection, and also provide additional file redirection, `JNI` monitor, file access control, provide to other modules to dynamically add or modify the configuration in the process. 
 
@@ -85,15 +90,15 @@ Android version: `Android 5.0` ~ `Android 11`+. Support instructions: `x86`, `x8
     ```
     -`Java Hook` data modification: directly reflect and modify the above `Map` object to take effect
     -`Native Hook` data modification: In addition to modifying the above `Map` object, you need to call [NativeInit.nativeSync](app/src/main/java/com/sanfengandroid/fakeinterface/NativeInit.java#nativeSync), which will clear some `native` data (file blacklist, symbol blacklist, attribute replacement, etc.) and then re-synchronized to `native`, which means that some old data is still in effect (maps rule, file redirection, file access permission configuration), but It can be updated
-        ```cpp
-        static void NativeHook_ClearAll(JNIEnv *env, jclass clazz) {
-            file_blacklist.clear();
-            file_path_blacklist.clear();
-            symbol_blacklist.clear();
-            properties.clear();
-        }
-        ```
-        There are some other `Native` interfaces that can be viewed by themselves. [NativeHook](app/src/main/java/com/sanfengandroid/fakeinterface/NativeHook.java) Just call those public methods by reflection
+    ```cpp
+    static void NativeHook_ClearAll(JNIEnv *env, jclass clazz) {
+        file_blacklist.clear();
+        file_path_blacklist.clear();
+        symbol_blacklist.clear();
+        properties.clear();
+    }
+    ```
+    There are some other `Native` interfaces that can be viewed by themselves. [NativeHook](app/src/main/java/com/sanfengandroid/fakeinterface/NativeHook.java) Just call those public methods by reflection
 
 **Note: This application may have compatibility issues, please make a backup when the Hook system is in progress**
 
