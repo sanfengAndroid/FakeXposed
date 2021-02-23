@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2021 FakeXposed by sanfengAndroid.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,13 +24,20 @@
             android:id="@+id/sample_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
-            />
+            android:text="Hello World!" />
+
     <Button
             android:id="@+id/btn_local_load"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="本地加载HOOK模块" />
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_dyn_local_load"
+            android:text="动态跨命名空间加载" />
+
     <Button
             android:id="@+id/btn_test_maps"
             android:layout_width="match_parent"
@@ -43,16 +49,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="测试类加载" />
+
     <Button
             android:id="@+id/btn_test_global"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="测试Debug检测" />
+
     <Button
             android:id="@+id/btn_test_getenv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="测试环境变量" />
+
     <Button
             android:id="@+id/btn_test_properties"
             android:layout_width="match_parent"

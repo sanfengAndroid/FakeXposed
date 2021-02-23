@@ -45,6 +45,7 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_test_maps).setOnClickListener(this);
         findViewById(R.id.btn_test_java_relink).setOnClickListener(this);
         findViewById(R.id.btn_local_load).setOnClickListener(this);
+        findViewById(R.id.btn_dyn_local_load).setOnClickListener(this);
         findViewById(R.id.btn_test_classloader).setOnClickListener(this);
         findViewById(R.id.btn_test_global).setOnClickListener(this);
         findViewById(R.id.btn_test_getenv).setOnClickListener(this);
@@ -59,6 +60,12 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
                 NativeHook.initLibraryPath(this);
                 NativeInit.initNative(this, Util.getProcessName(this));
             } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else if (id == R.id.btn_dyn_local_load) {
+            try {
+                System.loadLibrary(BuildConfig.HOOK_HIGH_MODULE_NAME + "64");
+            } catch (Throwable e) {
                 e.printStackTrace();
             }
         } else if (id == R.id.btn_test_maps) {
@@ -90,10 +97,10 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
                 method.setAccessible(true);
                 Class<?> nativeHook = (Class<?>) method.invoke(getClassLoader(), BuildConfig.APPLICATION_ID, null, 0, 0);
                 LogUtil.d(TAG, "get self class %s", nativeHook);
-            }catch (Throwable e){
+            } catch (Throwable e) {
                 LogUtil.e(TAG, "test self class2", e);
             }
-        }  else if (id == R.id.btn_test_java_relink) {
+        } else if (id == R.id.btn_test_java_relink) {
             NativeHook.relinkLibrary("libdl.so");
         } else if (id == R.id.btn_test_global) {
             LogUtil.d(TAG, "Build TAGS: %s", Build.TAGS);
@@ -101,7 +108,7 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
         } else if (id == R.id.btn_test_getenv) {
             LogUtil.d(TAG, "All environment: %s", System.getenv());
             LogUtil.d(TAG, "ANDROID_ART_ROOT environment: %s", System.getenv("ANDROID_ART_ROOT"));
-            LogUtil.d(TAG, "ANDROID_ART_ROOTS environment: %s", System.getenv("ANDROID_ART_ROOTS"));
+            LogUtil.d(TAG, "CLASSPATH environment: %s", System.getenv("CLASSPATH"));
         } else if (id == R.id.btn_test_properties) {
             try {
                 Class<?> clazz = Class.forName("android.os.SystemProperties");

@@ -208,14 +208,27 @@ bool FileNameIsBlacklisted(const char *path) {
     return FindMapIndex(file_blacklist, name) == kOOpen;
 }
 
+static std::map<std::string, char *> replace_env;
+
 char *FindEnvReplace(const char *name, char *value) {
+    auto iter = replace_env.find(name);
+    if (iter != replace_env.end()) {
+        return iter->second;
+    }
     JNIEnv *env = nullptr;
     jvm->GetEnv(reinterpret_cast<void **>(&env), JNI_VERSION_1_4);
     if (env != nullptr) {
         ScopedLocalRef<jstring> _name(env, env->NewStringUTF(name));
         ScopedLocalRef<jstring> _value(env, env->NewStringUTF(value));
         ScopedUtfChars result(env, reinterpret_cast<jstring>(env->CallStaticObjectMethod(java.nativeCall, java.replaceEnv, _name.get(), _value.get())), false);
-        return const_cast<char *>(result.c_str());
+        // 这里由于jstring马上要被清理，因此必须复制字符串,这里缓存起来方便下次查找，避免造成内存泄露
+        // 同时也会导致环境变量无法更新，但通常情况下环境变量是不会变的
+        if (result.c_str() != nullptr) {
+            char *copy = strdup(result.c_str());
+            LOGD("cache replace environment name: %s orig value: %s, replace value: %s", name, value, copy);
+            replace_env[name] = copy;
+            return copy;
+        }
     }
     return nullptr;
 }
