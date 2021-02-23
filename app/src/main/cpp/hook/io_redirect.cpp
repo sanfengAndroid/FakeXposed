@@ -303,13 +303,13 @@ const char *IoRedirect::RedirectToSourceFile(const char *redirect_file_path) {
     }
     // 当文件没有通过GetRedirectFile方式获取时,还需要再判断路径
     const char *src_dir = dirname(redirect_file_path);
-    src_dir = RedirectToSourceDirectory(src_dir);
-    if (src_dir == nullptr) {
+    const char *redirect_dir = RedirectToSourceDirectory(src_dir);
+    if (src_dir == redirect_dir || redirect_dir == nullptr) {
         return redirect_file_path;
     }
     char buf[PATH_MAX];
     const char *name = basename(redirect_file_path);
-    strlcpy(buf, src_dir, PATH_MAX);
+    strlcpy(buf, redirect_dir, PATH_MAX);
     strlcat(buf, "/", PATH_MAX);
     strlcat(buf, name, PATH_MAX);
     redirect_dir_files_[buf] = redirect_file_path;

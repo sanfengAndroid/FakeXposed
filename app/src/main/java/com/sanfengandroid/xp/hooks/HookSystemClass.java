@@ -46,6 +46,7 @@ import de.robv.android.xposed.XposedBridge;
  * 这里应该监听有属性变化然后再次调整
  */
 public class HookSystemClass implements IHook {
+    private final String PropsName = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? "props" : "systemProperties";
     private static final String TAG = HookSystemClass.class.getSimpleName();
     private final Observer envObserver = (o, arg) -> {
         if (arg != null && Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
@@ -95,7 +96,8 @@ public class HookSystemClass implements IHook {
     public void hook(ClassLoader loader) throws Throwable {
         orig = System.getProperties();
         copyProperties(orig, proxy);
-        ReflectUtil.setFieldStatic(System.class, "props", proxy);
+        // 6.0 systemProperties
+        ReflectUtil.setFieldStatic(System.class, PropsName, proxy);
         GlobalConfig.addObserver(propObserver, DataModelType.SYSTEM_PROPERTY_HIDE);
 
         Method method = System.class.getDeclaredMethod("setProperties", Properties.class);
@@ -106,7 +108,7 @@ public class HookSystemClass implements IHook {
                 orig = System.getProperties();
                 proxy.clear();
                 copyProperties(orig, proxy);
-                ReflectUtil.setFieldStatic(System.class, "props", proxy);
+                ReflectUtil.setFieldStatic(System.class, PropsName, proxy);
                 propObserver.update(null, GlobalConfig.getMap(DataModelType.SYSTEM_PROPERTY_HIDE));
             }
         });

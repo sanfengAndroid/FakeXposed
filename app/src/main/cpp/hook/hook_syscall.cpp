@@ -135,7 +135,7 @@ INTERCEPT_SYSCALL(readlinkat, int dir_fd, const char *path, char *buf, size_t bu
     if (result >= 0 && buf[0] == '/') {
         buf[buf_size] = '\0';
         const char *src = IoRedirect::RedirectToSource(buf);
-        if (src != buf) {
+        if (src != nullptr && src != buf) {
             // 将结尾0拷贝,以防原始路径过短字符串错误
             result = strlen(src);
             if (result > buf_size) {
@@ -199,7 +199,7 @@ INTERCEPT_SYSCALL(getcwd, char *buf, size_t size) {
         return result;
     }
     const char *real = IoRedirect::RedirectToSourceDirectory(buf);
-    if (real == buf) {
+    if (real == buf || real == nullptr) {
         return result;
     }
     size_t len = strlen(real);

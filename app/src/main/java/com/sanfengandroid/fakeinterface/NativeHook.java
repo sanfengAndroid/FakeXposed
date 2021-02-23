@@ -263,7 +263,7 @@ public final class NativeHook {
         if (TextUtils.isEmpty(value)) {
             return ErrorCode.ERROR_JAVA_EXECUTE;
         }
-        return callMapsBlackList("r " + value, MapsMode.MM_REMOVE.ordinal(), true);
+        return callMapsBlackList(value, MapsMode.MM_REMOVE.ordinal(), true);
     }
 
     public static ErrorCode addMapsRule(MapsMode mode, String key, String value) {

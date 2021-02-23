@@ -17,6 +17,7 @@
 
 package com.sanfengandroid.xp.hooks;
 
+import com.sanfengandroid.common.util.LogUtil;
 import com.sanfengandroid.xp.SecureThrowable;
 
 /**
@@ -39,10 +40,14 @@ public class XposedFilter implements IHook {
     }
 
     @Override
-    public void hook(ClassLoader loader) throws Throwable {
+    public void hook(ClassLoader loader) {
         SecureThrowable.initStack();
         for (IHook hook : hooks) {
-            hook.hook(loader);
+            try {
+                hook.hook(loader);
+            } catch (Throwable e) {
+                LogUtil.e(TAG, "Hook java error", e);
+            }
         }
     }
 }

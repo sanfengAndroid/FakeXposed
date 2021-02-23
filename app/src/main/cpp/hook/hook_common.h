@@ -7,6 +7,7 @@
 #include <alog.h>
 #include <macros.h>
 #include <linker_export.h>
+#include <errno.h>
 
 #define USE_SYSCALL                 // 标记哪些函数使用syscall,然后在syscall实现中实施拦截
 #define STUB_SYMBOL                 // 标记跳板函数,不实施拦截,在具体目标函数拦截
