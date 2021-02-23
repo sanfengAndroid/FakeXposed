@@ -124,6 +124,7 @@ static void InitPreFunction() {
     CHECK(self_soinfo);
 
     LOGD("libc handle: %p, libc soinfo: %p, self soinfo: %p", libc_handle, libc_soinfo, self_soinfo);
+
 }
 
 static int GetHookConfigIndex(const char *name) {

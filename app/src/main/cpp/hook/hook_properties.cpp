@@ -32,7 +32,10 @@ FUN_INTERCEPT HOOK_DEF(int, __system_property_get, const char *name, char *value
 
 FUN_INTERCEPT HOOK_DEF(const prop_info *, __system_property_find, const char *name) {
     const prop_info *ret = get_orig___system_property_find()(name);
+    // 修复Android 7及以下 libcutil 出现的循环依赖问题，会递归查找
+#if __ANDROID_API__ > __ANDROID_API_O__
     LOGMV("name: %s, result: %p", name, ret);
+#endif
     return ret != nullptr && PropertiesIsBlacklisted(name) ? nullptr : ret;
 }
 

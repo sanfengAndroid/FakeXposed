@@ -101,6 +101,8 @@ public class XposedEntry implements IXposedHookLoadPackage {
             // 使用自身ContentProvider如果未启动则手动启动,这样会增加很长的启动时间
             mode = XpConfigAgent.xSharedPreferencesAvailable() ? XpDataMode.X_SP : XpDataMode.APP_CALL;
             XpConfigAgent.setDataMode(mode);
+            LogUtil.d(TAG, "current data mode: %s", mode.name());
+            XposedBridge.log(TAG + " current data mode: " + mode.name());
             XpConfigAgent.setProcessMode(ProcessMode.HOOK_APP);
             if (!XpConfigAgent.getHookAppEnable(contextImpl, lpparam.packageName)) {
                 return;
