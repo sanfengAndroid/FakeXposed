@@ -30,7 +30,8 @@ Android version: `Android 5.0` ~ `Android 11`+. Support instructions: `x86`, `x8
   - Set `ANDROID_SDK_ROOT` to the system environment variable, and install `Android NDK 22.0.7026061`, which can be done in `Android Studio SDK Manager`
   - Run `python build.py -vrm all` to execute a complete `Release` build 
   - Run `python build.py -vrm api 30` to compile only `Android Api level 30`
-  - For more options, please see the [build.py](build.py) script 
+  - For more options, please see the [build.py](build.py) script
+  - Note that `Android Api 25` uses the native module of `Android Api 24`. The `Api 24` used during compilation will not correspond to libxxx25.so
 
 ## Download
 [Download the latest Release version](https://github.com/sanfengAndroid/FakeXposed/releases/latest)

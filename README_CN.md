@@ -15,7 +15,7 @@
 查看 [FakeXposed原理分析](https://sanfengandroid.github.io/2021/02/20/fakexposed-principle-analyze/)
 
 ## 支持的Android版本
-支持版本：`Android 5.0 ~ Android 11+`，支持架构：`x86`，`x86_64`，`arm`，`arm64`，`Api 25`由于新版本 `NDK` 移除需要自行改变 `NDK` 版本适配编译
+支持版本：`Android 5.0 ~ Android 11+`，支持架构：`x86`，`x86_64`，`arm`，`arm64`
 
 ## 构建
 - 需要的编译环境：任何支持`Android Studio`的平台， `Python 3.6+`（脚本编译使用）
@@ -28,6 +28,7 @@
   - 运行 `python build.py -vrm all` 执行完整 `Release` 编译
   - 运行 `python build.py -vrm api 30`只编译`Android Api level 30`
   - 更多选项请查看 [build.py](build.py) 脚本
+  - 注意 `Android Api 25` 使用的是 `Android Api 24` 的 native 模块，编译时使用的 `Api 24` 因此不会有对应 libxxx25.so
 
 ## 下载
 [最新Release版本下载](https://github.com/sanfengAndroid/FakeXposed/releases/latest)

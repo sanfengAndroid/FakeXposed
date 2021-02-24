@@ -193,7 +193,8 @@ def build_api(args):
     if args.level < 21 or args.level > 30:
         error(f'unsupported api level: {args.level}')
     if args.level == 25:
-        header('Warning:compile incompatible versions of ndk: 25')
+        args.level = 24
+        header('Warning:compiled api version 25 uses 24 instead')
     if args.merge:
         proc = execv([gradlew,  f'app:externalNativeBuild{build_type}',
                       f'-PbuildApi={args.level}', '-PmergeBuild=true', '-PconfigPath=' + op.abspath(args.config), '-Pabis=arm64-v8a,x86_64', f'-PlogLevel={args.log}'])

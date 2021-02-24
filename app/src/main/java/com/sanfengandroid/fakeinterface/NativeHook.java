@@ -467,7 +467,8 @@ public final class NativeHook {
     }
 
     public static String getDefaultFakeLinkerPath() {
-        String name = "lib" + BuildConfig.LINKER_MODULE_NAME + "-" + Build.VERSION.SDK_INT;
+        String name = "lib" + BuildConfig.LINKER_MODULE_NAME + "-" + (Build.VERSION.SDK_INT == Build.VERSION_CODES.N_MR1 ? Build.VERSION_CODES.N : Build.VERSION.SDK_INT);
+
         return new File(libraryPath, FileInstaller.isRunning64Bit() ? name + "64.so" : name + ".so").getAbsolutePath();
     }
 
