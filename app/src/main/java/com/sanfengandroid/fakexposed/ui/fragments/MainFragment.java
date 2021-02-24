@@ -20,6 +20,7 @@ package com.sanfengandroid.fakexposed.ui.fragments;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -99,6 +100,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.fakelinker_article).setOnClickListener(this);
         view.findViewById(R.id.fakexpose_article).setOnClickListener(this);
         view.findViewById(R.id.fakexpose_sources).setOnClickListener(this);
+        view.findViewById(R.id.join_qq).setOnClickListener(this);
         TextView source = view.findViewById(R.id.fakelinker_sources);
         source.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         source = view.findViewById(R.id.fakelinker_article);
@@ -106,6 +108,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         source = view.findViewById(R.id.fakexpose_article);
         source.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         source = view.findViewById(R.id.fakexpose_sources);
+        source.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        source = view.findViewById(R.id.join_qq);
         source.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         installHookConfig.setOnClickListener(this);
         installHookConfig.setChecked(SPProvider.getHookConfigurationInstallTime() != 0);
@@ -155,6 +159,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     updateCard.setVisibility(finalSuccess ? View.GONE : View.VISIBLE);
                 });
             });
+        } else if (id == R.id.join_qq) {
+            if (!joinQQGroup()) {
+                mViewModel.setMessage(getString(R.string.please_install_qq));
+            }
         } else {
             String url = (String) v.getTag();
             if (url != null) {
@@ -164,6 +172,18 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 } catch (URISyntaxException ignore) {
                 }
             }
+        }
+    }
+
+    private boolean joinQQGroup() {
+        Intent intent = new Intent();
+        intent.setData(Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26jump_from%3Dwebapi%26k%3D" + "CBrl7C8WiubBzAbOq2EGUaTmx8D9Wylf"));
+        try {
+            startActivity(intent);
+            return true;
+        } catch (Exception e) {
+            // 未安装手Q或安装的版本不支持
+            return false;
         }
     }
 }

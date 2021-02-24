@@ -13,7 +13,12 @@ enum ExecVariant {
 };
 
 FUN_INTERCEPT HOOK_DEF(int, execve, const char *filename, char *const argv[], char *const envp[]) {
-    LOGMV("path %s", filename);
+    LOGMV("cmd %s ", filename);
+    int i = 0;
+    while (argv[i] != nullptr) {
+        LOGMV("arg %d: %s ", i, filename);
+        i++;
+    }
     IS_BLACKLIST_FILE(filename);
     return get_orig_execve()(IoRedirect::GetRedirectFile(filename), argv, envp);
 }
@@ -75,7 +80,12 @@ STUB_SYMBOL C_API API_PUBLIC int execlp(const char *name, const char *arg, ...) 
 // 不能拦截execvp,否者子进程执行一直不结束
 // java层调用执行会有问题,C层没有问题
 FUN_INTERCEPT HOOK_DEF(int, execvp, const char *name, char *const *argv) {
-    LOGMV("cmd: %s", name);
+    LOGMV("cmd %s ", name);
+    int i = 0;
+    while (argv[i] != nullptr) {
+        LOGMV("arg %d: %s ", i, name);
+        i++;
+    }
     void *caller = __builtin_return_address(0);
     int error_code = 0;
     char *so_name = static_cast<char *>(remote->CallSoinfoFunction(kSFGetName, kSPAddress, caller, kSPNull, nullptr, &error_code));

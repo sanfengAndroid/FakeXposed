@@ -24,8 +24,8 @@ plugins {
 def highHookModuleName = 'hookh'
 def lowHookModuleName = 'hookl'
 def hookModuleName = (rootProject.props['buildApi'] ?: rootProject.targetSdk) >= 24 ? highHookModuleName : lowHookModuleName
-def mVersionCode = 1000
-def mVersionName = "1.0"
+def mVersionCode = 1100
+def mVersionName = "1.1"
 
 android {
     compileSdkVersion 30

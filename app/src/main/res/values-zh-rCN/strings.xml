@@ -180,5 +180,7 @@
     <string name="fakelinker_article">fake-linker分析</string>
     <string name="add_item_key_runtime_exec_old_args">旧参数，空格分隔参数，\\ 转义空格</string>
     <string name="add_item_key_match_args">匹配参数</string>
+    <string name="feedback">讨论反馈</string>
+    <string name="please_install_qq">请安装新版手机QQ</string>
 
 </resources>
