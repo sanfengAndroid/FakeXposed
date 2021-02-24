@@ -10,3 +10,4 @@
 - Fix the redirection path reverse reading problem
 - Fix missing syscall open call number
 - Change the new Runtime.exec matching rules and take effect
+- Add Android 25 support

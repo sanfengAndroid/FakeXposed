@@ -10,3 +10,4 @@
 - 修复重定向路径反向读取问题
 - 修复遗漏的syscall open调用号
 - 更改新的Runtime.exec匹配规则并生效
+- 添加Android 25支持
