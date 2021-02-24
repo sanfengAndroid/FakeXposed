@@ -284,4 +284,5 @@ public class AppBarActivity extends AppCompatActivity {
         sharingIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text));
         startActivity(Intent.createChooser(sharingIntent, getString(R.string.share)));
     }
+
 }
