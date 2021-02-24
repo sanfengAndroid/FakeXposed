@@ -8,6 +8,9 @@ Chinese document click [here](README_CN.md)
 
     ![](https://cdn.jsdelivr.net/gh/sanfengAndroid/sanfengAndroid.github.io@main/images/qq_group.jpg)
 
+## Changlog
+[Changelog](docs/en/app_changes.md)
+
 ## Project description
 Use [fake-linker](https://github.com/sanfengAndroid/fake-linker) in combination with `Xposed` to provide `Java` and `Native` bidirectional shielding of `Xposed` detection, and also provide additional file redirection, `JNI` monitor, file access control, provide to other modules to dynamically add or modify the configuration in the process. 
 

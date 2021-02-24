@@ -5,6 +5,8 @@
 - 由于目前问题可能较多，为方便交流可以加Q群
 
     ![](https://cdn.jsdelivr.net/gh/sanfengAndroid/sanfengAndroid.github.io@main/images/qq_group.jpg)
+## 更新日志
+[更新日志](docs/cn/app_changes.md)
 
 ## 项目描述
 使用 [fake-linker](https://github.com/sanfengAndroid/fake-linker) 与 `Xposed` 结合，提供 `Java` 和 `Native` 双向屏蔽 `Xposed`检测，还提供额外的文件重定向、`JNI`监听、文件访问权限控制、提供给其它模块在进程内动态添加或修改配置。

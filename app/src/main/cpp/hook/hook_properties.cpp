@@ -51,7 +51,7 @@ FUN_INTERCEPT HOOK_DEF(void, __system_property_read_callback,
                        const prop_info *pi,
                        void (*callback)(void *__cookie, const char *__name, const char *__value, uint32_t __serial),
                        void *cookie) __INTRODUCED_IN(26) {
-    LOGMV("prop_info: %p, cookie: %p", pi, cookie);
+//    LOGMV("prop_info: %p, cookie: %p", pi, cookie);
     if (cookie == nullptr) {
         get_orig___system_property_read_callback()(pi, callback, cookie);
         return;
