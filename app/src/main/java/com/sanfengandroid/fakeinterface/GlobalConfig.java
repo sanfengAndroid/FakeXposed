@@ -32,8 +32,8 @@ import com.sanfengandroid.common.model.base.DataModelType;
 import com.sanfengandroid.common.model.base.ShowDataModel;
 import com.sanfengandroid.common.util.LogUtil;
 import com.sanfengandroid.common.util.Util;
-import com.sanfengandroid.xp.ObservableMap;
 import com.sanfengandroid.xp.DefaultLists;
+import com.sanfengandroid.xp.ObservableMap;
 
 import org.json.JSONObject;
 
@@ -65,7 +65,8 @@ public class GlobalConfig {
     private static final Map<String, String> globalPropertyBlacklist = new HashMap<>();
     private static final Map<String, String> componentKeyBlacklist = new HashMap<>();
     private static final Map<String, String> globalSettingsBlacklist = new HashMap<>();
-    private static final Map<String, ExecBean> runtimeBlackList = new HashMap<>();
+    // 添加参数匹配会导致同一命名多个匹配项,要单独处理
+    private static final Map<String, List<ExecBean>> runtimeBlackList = new HashMap<>();
     private static final Map<String, String> fileBlacklist = new HashMap<>();
     private static final Map<String, String> symbolBlacklist = new HashMap<>();
     private static final Map<String, String> mapsBlacklist = new HashMap<>();
@@ -122,6 +123,9 @@ public class GlobalConfig {
             mapsBlacklist.put(pair.first, pair.second);
         }
 
+        for (Pair<String, List<ExecBean>> pair : DefaultLists.DEFAULT_RUNTIME_LIST) {
+            runtimeBlackList.put(pair.first, pair.second);
+        }
         maps = new Map[DataModelType.values().length];
         maps[DataModelType.NOTHING.ordinal()] = new HashMap<>();
         maps[DataModelType.LOAD_CLASS_HIDE.ordinal()] = classBlacklist;
@@ -166,10 +170,12 @@ public class GlobalConfig {
                     }
                     break;
                 case RUNTIME_EXEC_HIDE:
-                    for (ExecBean bean : runtimeBlackList.values()) {
-                        RuntimeExecModel model = new RuntimeExecModel();
-                        model.setBean(bean);
-                        data.add(model);
+                    for (List<ExecBean> beans : runtimeBlackList.values()) {
+                        for (ExecBean bean : beans) {
+                            RuntimeExecModel model = new RuntimeExecModel();
+                            model.setBean(bean);
+                            data.add(model);
+                        }
                     }
                     break;
                 default:
@@ -293,7 +299,13 @@ public class GlobalConfig {
                         break;
                     case RUNTIME_EXEC_HIDE:
                         RuntimeExecModel runModel = (RuntimeExecModel) model;
-                        runtimeBlackList.put(runModel.getBean().oldCmd, runModel.getBean());
+                        runModel.getBean().transform();
+                        List<ExecBean> list = runtimeBlackList.get(runModel.getBean().originalCommand);
+                        if (list == null) {
+                            list = new ArrayList<>();
+                            runtimeBlackList.put(runModel.getBean().originalCommand, list);
+                        }
+                        list.add(runModel.getBean());
                         break;
                     case NOTHING:
                         break;

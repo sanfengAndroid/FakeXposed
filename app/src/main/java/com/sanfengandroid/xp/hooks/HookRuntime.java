@@ -30,7 +30,6 @@ import com.sanfengandroid.fakeinterface.GlobalConfig;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,19 +38,6 @@ import de.robv.android.xposed.XposedBridge;
 
 public class HookRuntime implements IHook {
     private static final String TAG = HookRuntime.class.getSimpleName();
-
-    private static byte[] toCString(String s) {
-        if (s == null) {
-            return null;
-        }
-        byte[] bytes = s.getBytes();
-        byte[] result = new byte[bytes.length + 1];
-        System.arraycopy(bytes, 0,
-                result, 0,
-                bytes.length);
-        result[result.length - 1] = (byte) 0;
-        return result;
-    }
 
     /**
      * Android 7.0及以上java.lang.UNIXProcess
@@ -70,45 +56,43 @@ public class HookRuntime implements IHook {
         Constructor<?> ctor = Class.forName("java.lang.UNIXProcess").getDeclaredConstructors()[0];
         GlobalConfig.addHookMethodModifierFilter(ctor);
         XposedBridge.hookMethod(ctor, new XC_MethodHook() {
-            private ExecBean bean;
+            private final ThreadLocal<ExecBean> founds = new ThreadLocal<>();
 
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 //  byte[] prog,   byte[] argBlock, int argc,   byte[] envBlock,        int envc,       byte[] dir,          int[] fds,                  boolean redirectErrorStream
                 //   C格式命令       C格式参数          参数数量      C格式环境变量       环境变量数量      C格式工作目录   3个标准I/O重定向文件描述符默认-1           重定向错误流默认false
-                bean = null;
+
                 byte[] cmdBytes = (byte[]) param.args[0];
                 String cmd = new String(cmdBytes, 0, cmdBytes.length - 1);
                 byte[] cargs = (byte[]) param.args[1];
-                LogUtil.v(TAG, "Call Runtime exec cmd: %s, args: %s", cmd, cargs.length > 0 ? new String(cargs, 0, cargs.length - 1) : "");
-                bean = GlobalConfig.getEqualBlacklistValue(cmd, DataModelType.RUNTIME_EXEC_HIDE, ExecBean.class);
-                if (bean == null) {
+                LogUtil.v(TAG, "Call Runtime exec cmd: %s, args: %s, arg lens: %s", cmd, cargs.length > 0 ? new String(cargs, 0, cargs.length - 1) : "", param.args[2]);
+                List<ExecBean> list = (List<ExecBean>) GlobalConfig.getEqualBlacklistValue(cmd, DataModelType.RUNTIME_EXEC_HIDE);
+                if (list == null) {
                     return;
                 }
-                if (bean.newCmd != null) {
-                    param.args[0] = toCString(bean.newCmd);
-                }
-                if (bean.replaceArgs) {
-                    byte[][] args = new byte[bean.args.length][];
-                    int size = args.length; // For added NUL bytes
-                    for (int i = 0; i < args.length; i++) {
-                        args[i] = bean.args[i].getBytes();
-                        size += args[i].length;
+                for (ExecBean bean : list) {
+                    LogUtil.d(TAG, "查找命令: %s", bean);
+                    if (bean.matchParameter && !Arrays.equals(bean.cOriginalParameters, cargs)) {
+                        continue;
                     }
-                    byte[] argBlock = new byte[size];
-                    int i = 0;
-                    for (byte[] arg : args) {
-                        System.arraycopy(arg, 0, argBlock, i, arg.length);
-                        i += arg.length + 1;
-                        // No need to write NUL bytes explicitly
+                    if (bean.cReplaceCommand != null) {
+                        param.args[0] = bean.cReplaceCommand;
+                        LogUtil.d(TAG, "replace cmd: %s", bean.replaceCommand);
                     }
-                    param.args[1] = argBlock;
-                    param.args[2] = args.length;
+                    if (bean.replaceParameter) {
+                        param.args[1] = bean.cReplaceParameters;
+                        param.args[2] = bean.replaceParameterLength;
+                        LogUtil.d(TAG, "replace args: %s", bean.replaceParameters);
+                    }
+                    founds.set(bean);
+                    break;
                 }
             }
 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                ExecBean bean = founds.get();
                 if (bean == null) {
                     return;
                 }
@@ -125,6 +109,7 @@ public class HookRuntime implements IHook {
                 if (bean.errStream != null) {
                     ReflectUtil.setFieldInstance(process, "stdin", new ProxyInputStream(bean.errStream));
                 }
+                founds.set(null);
             }
         });
     }
@@ -133,32 +118,36 @@ public class HookRuntime implements IHook {
         Method method = Class.forName("java.lang.ProcessManager").getDeclaredMethod("exec", String[].class, String[].class, File.class, boolean.class);
         GlobalConfig.addHookMethodModifierFilter(method);
         XposedBridge.hookMethod(method, new XC_MethodHook() {
-            private ExecBean bean;
+            private final ThreadLocal<ExecBean> founds = new ThreadLocal<>();
 
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 // String[] taintedCommand, String[] taintedEnvironment, File workingDirectory, boolean redirectErrorStream
-                bean = null;
                 String[] taintedCommand = (String[]) param.args[0];
-                LogUtil.v(TAG, "Runtime exec : %s", Arrays.toString(taintedCommand));
-                bean = GlobalConfig.getEqualBlacklistValue(taintedCommand[0], DataModelType.RUNTIME_EXEC_HIDE, ExecBean.class);
-                if (bean == null || (bean.newCmd == null && !bean.replaceArgs)) {
+                LogUtil.v(TAG, "Call Runtime exec : %s", Arrays.toString(taintedCommand));
+                List<ExecBean> list = (List<ExecBean>) GlobalConfig.getEqualBlacklistValue(taintedCommand[0], DataModelType.RUNTIME_EXEC_HIDE);
+                if (list == null) {
                     return;
                 }
-                List<String> list = new ArrayList<>();
-                list.add(bean.newCmd == null ? taintedCommand[0] : bean.newCmd);
-                if (bean.args != null) {
-                    for (String s : bean.args) {
-                        if (s != null) {
-                            list.add(s);
-                        }
+                for (ExecBean bean : list) {
+                    if (bean.matchParameter && !Arrays.equals(taintedCommand, bean.javaCommands)) {
+                        continue;
                     }
+                    if (bean.replaceParameter) {
+                        param.args[0] = bean.javaReplaceCommands;
+                        LogUtil.d(TAG, "repalce args: %s", bean.replaceParameters);
+                    } else {
+                        taintedCommand[0] = bean.replaceCommand;
+                        LogUtil.d(TAG, "repalce cmd: %s", bean.replaceCommand);
+                    }
+                    founds.set(bean);
+                    break;
                 }
-                param.args[0] = list.toArray(new String[0]);
             }
 
             @Override
             protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                ExecBean bean = founds.get();
                 if (bean == null) {
                     return;
                 }
@@ -172,6 +161,7 @@ public class HookRuntime implements IHook {
                 if (bean.errStream != null) {
                     ReflectUtil.setFieldInstanceNoException(process, "errorStream", new ProxyInputStream(bean.errStream));
                 }
+                founds.set(null);
             }
         });
     }

@@ -71,13 +71,13 @@
     <string name="input_stream">InputStream</string>
     <string name="output_stream">OutputStream</string>
     <string name="error_stream">ErrorStream</string>
-    <string name="add_item_key_runtime_exec_name">Command name</string>
-    <string name="add_item_key_runtime_exec_args">Command parameters</string>
+    <string name="add_item_key_runtime_exec_name">Command name,do not modify if empty</string>
+    <string name="add_item_key_runtime_exec_args">Command parameters, space separated parameters, \\\\ escape spaces</string>
     <string name="add_item_key_replace_args">Replacement parameters</string>
     <string name="add_item_key_input_stream_fixed">Fixed input stream</string>
     <string name="add_item_key_output_stream_fixed">Fixed output stream</string>
     <string name="add_item_key_error_stream_fixed">Fixed error stream</string>
-    <string name="add_item_key_runtime_exec_old_name">Old command name</string>
+    <string name="add_item_key_runtime_exec_old_name">Old command name, required</string>
     <string name="null_value">null</string>
     <string name="add_item_key_system_env">Environment variable name</string>
     <string name="add_item_value_system_env">Regular expression replacement value, multiple regular line breaks</string>
@@ -186,4 +186,6 @@
     <string name="fakelinker_article_link" translatable="false">https://sanfengandroid.github.io/2021/01/10/modify-linker-to-implement-plt-hook/</string>
     <string name="fakexposed_source_link" translatable="false">https://github.com/sanfengAndroid/FakeXposed</string>
     <string name="fakexposed_article_link" translatable="false">https://sanfengandroid.github.io/2021/02/20/fakexposed-principle-analyze/</string>
+    <string name="add_item_key_runtime_exec_old_args">old args, space separated parameters, \\ escape spaces</string>
+    <string name="add_item_key_match_args">Matching parameters</string>
 </resources>

@@ -73,4 +73,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="测试Java调用重定位库" />
+
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_test_runtime_exec"
+            android:text="测试Runtime.exec执行" />
 </LinearLayout>

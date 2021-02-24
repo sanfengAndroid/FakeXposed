@@ -192,7 +192,6 @@
                     app:layout_constraintEnd_toEndOf="@+id/new_"
                     app:layout_constraintBottom_toBottomOf="@id/old_cmd_args_tv"
                     android:layout_marginTop="8dp"
-
                     android:textSize="14sp"
                     android:gravity="center"
                     android:text="@string/null_value"

@@ -20,7 +20,11 @@ package com.sanfengandroid.xp;
 import android.util.Pair;
 
 import com.sanfengandroid.common.bean.EnvBean;
+import com.sanfengandroid.common.bean.ExecBean;
 import com.sanfengandroid.fakeinterface.MapsMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author sanfengAndroid
@@ -44,8 +48,23 @@ public class DefaultLists {
     public static final Pair<String, String>[] DEFAULT_MAPS_RULE_LIST = new Pair[]{new Pair("XposedBridge", MapsMode.MM_REMOVE.key),
             new Pair("libmemtrack_real.so", MapsMode.MM_REMOVE.key)};
 
+    public static final Pair<String, List<ExecBean>>[] DEFAULT_RUNTIME_LIST;
+
     static {
         EnvBean bean = new EnvBean("CLASSPATH", "XposedBridge");
         DEFAULT_SYSTEM_ENV_LIST = new EnvBean[]{bean};
+        ExecBean rbean = new ExecBean();
+        rbean.originalCommand = "ls";
+        rbean.originalParameters = "/system/lib";
+        rbean.replaceCommand = "ls";
+        rbean.matchParameter = true;
+//            rbean.replaceParameter = true;
+//            rbean.replaceParameters = "/system";
+        rbean.inputStream = "fake exec ls /system/lib";
+        rbean.transform();
+        List<ExecBean> list = new ArrayList<>();
+        list.add(rbean);
+
+        DEFAULT_RUNTIME_LIST = new Pair[]{new Pair<>(rbean.originalCommand, list)};
     }
 }

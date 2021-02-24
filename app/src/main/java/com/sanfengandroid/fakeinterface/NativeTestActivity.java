@@ -18,6 +18,7 @@
 package com.sanfengandroid.fakeinterface;
 
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -33,6 +34,7 @@ import com.sanfengandroid.fakexposed.R;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 
 public class NativeTestActivity extends AppCompatActivity implements View.OnClickListener {
@@ -50,6 +52,7 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_test_global).setOnClickListener(this);
         findViewById(R.id.btn_test_getenv).setOnClickListener(this);
         findViewById(R.id.btn_test_properties).setOnClickListener(this);
+        findViewById(R.id.btn_test_runtime_exec).setOnClickListener(this);
     }
 
     @Override
@@ -117,6 +120,21 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else if (id == R.id.btn_test_runtime_exec) {
+            AsyncTask.execute(() -> {
+                try {
+                    String[] cmd = new String[]{"ls", "/system/lib"};
+                    Process process = Runtime.getRuntime().exec(cmd);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    LogUtil.d(TAG, "test runtime result: ");
+                    while ((line = br.readLine()) != null) {
+                        LogUtil.d(TAG, line);
+                    }
+                } catch (Throwable e) {
+                    LogUtil.e(TAG, "test runtime error", e);
+                }
+            });
         }
     }
 }

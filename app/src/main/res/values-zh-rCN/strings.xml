@@ -74,13 +74,13 @@
     <string name="input_stream">输入流</string>
     <string name="output_stream">输出流</string>
     <string name="error_stream">错误流</string>
-    <string name="add_item_key_runtime_exec_name">新命令名</string>
-    <string name="add_item_key_runtime_exec_args">命令参数</string>
+    <string name="add_item_key_runtime_exec_name">新命令名, 空则不修改</string>
+    <string name="add_item_key_runtime_exec_args">命令参数，空格分隔参数，\\ 转义空格和自身</string>
     <string name="add_item_key_replace_args">替换参数</string>
     <string name="add_item_key_input_stream_fixed">固定输入流</string>
     <string name="add_item_key_output_stream_fixed">固定输出流</string>
     <string name="add_item_key_error_stream_fixed">固定错误流</string>
-    <string name="add_item_key_runtime_exec_old_name">旧命令名</string>
+    <string name="add_item_key_runtime_exec_old_name">旧命令名,必填</string>
     <string name="null_value">null</string>
     <string name="add_item_key_system_env">环境变量名称</string>
     <string name="add_item_value_system_env">正则表达式替换值,多个正则换行分割</string>
@@ -178,5 +178,7 @@
     <string name="fakelinker_sources">fake-linker源码</string>
     <string name="fakexposed_article">FakeXposed分析</string>
     <string name="fakelinker_article">fake-linker分析</string>
+    <string name="add_item_key_runtime_exec_old_args">旧参数，空格分隔参数，\\ 转义空格</string>
+    <string name="add_item_key_match_args">匹配参数</string>
 
 </resources>

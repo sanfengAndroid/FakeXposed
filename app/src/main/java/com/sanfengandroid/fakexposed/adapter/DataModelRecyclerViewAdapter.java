@@ -1,18 +1,18 @@
 /*
  * Copyright (c) 2021 FakeXposed by sanfengAndroid.
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *  
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- *  
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *  
+ *
  */
 
 package com.sanfengandroid.fakexposed.adapter;
@@ -27,6 +27,7 @@ import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.sanfengandroid.common.model.InstallPackageModel;
 import com.sanfengandroid.common.model.base.DataModelFilterable;
 import com.sanfengandroid.common.model.base.ShowDataModel;
@@ -203,7 +204,15 @@ public class DataModelRecyclerViewAdapter<T extends ShowDataModel> extends Recyc
             }
             return true;
         });
+        initSwitchListener(holder);
         return holder;
+    }
+
+    private void initSwitchListener(ViewHolder holder) {
+        SwitchMaterial hookSwitch = holder.itemView.findViewById(R.id.item_switch);
+        if (hookSwitch != null) {
+            hookSwitch.setClickable(false);
+        }
     }
 
     @Override

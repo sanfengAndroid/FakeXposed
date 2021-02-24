@@ -228,6 +228,11 @@ C_API long syscall(long number, ...) {
     }
     LOGV("Monitor: syscall invoke number: %ld", number);
     switch (number) {
+#ifndef __aarch64__
+        case __NR_open:
+            ret = CALL_INTERCEPT(openat, AT_FDCWD, reinterpret_cast<const char *>(arg[0]), GPOINTER_TO_SIZE(arg[1]), GPOINTER_TO_SIZE(arg[2]));
+            break;
+#endif
         case __NR_openat:
             ret = CALL_INTERCEPT(openat, GPOINTER_TO_SIZE(arg[0]), reinterpret_cast<const char *>(arg[1]), GPOINTER_TO_SIZE(arg[2]), GPOINTER_TO_SIZE(arg[3]));
             break;

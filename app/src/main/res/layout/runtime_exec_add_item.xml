@@ -37,11 +37,39 @@
                 android:id="@+id/item_old_cmd_et" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.checkbox.MaterialCheckBox
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/item_old_cmd_tip"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/item_args_match"
+            android:text="@string/add_item_key_match_args" />
+
     <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            app:layout_constraintTop_toBottomOf="@+id/item_old_cmd_tip"
+            app:layout_constraintTop_toBottomOf="@+id/item_args_match"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/Widget.XpFilter.TextInputLayout"
+            android:hint="@string/add_item_key_runtime_exec_old_args"
+            android:id="@+id/item_old_args_tip"
+            android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:id="@+id/item_old_args_et" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/item_old_args_tip"
             app:layout_constraintStart_toStartOf="parent"
             style="@style/Widget.XpFilter.TextInputLayout"
             android:hint="@string/add_item_key_runtime_exec_name"
