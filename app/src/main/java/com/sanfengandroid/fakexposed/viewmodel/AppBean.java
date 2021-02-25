@@ -17,12 +17,14 @@
 
 package com.sanfengandroid.fakexposed.viewmodel;
 
+import com.sanfengandroid.fakexposed.BuildConfig;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AppBean {
     public static final String UPDATE_URL = "https://cdn.jsdelivr.net/gh/sanfengAndroid/service-configure@main/fakexposed.json";
-    private static final String KEY_APP_STANDARD = "app_standard";
+    private static final String KEY_APP_STANDARD = "app_standard_" + BuildConfig.APP_TYPE;
     private String version;
     private long versionCode;
     private String link;

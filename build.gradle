@@ -16,6 +16,16 @@
  */
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+static String getType(List allAbi) {
+    def type = 0
+    type |= allAbi.contains('x86') ? 1 : 0
+    type |= allAbi.contains('x86_64') ? 1 : 0
+    type |= allAbi.contains('armeabi-v7a') ? 2 : 0
+    type |= allAbi.contains('arm64-v8a') ? 2 : 0
+    return type == 1 ? 'x86' : type == 2 ? 'arm' : 'all'
+}
+
 ext {
     props = new Properties()
     if (project.hasProperty('configPath')) {
@@ -25,7 +35,7 @@ ext {
     }
     project.hasProperty('buildApi') && (props['buildApi'] = buildApi.toInteger())
     project.hasProperty('mergeBuild') && (props['mergeBuild'] = mergeBuild.toLowerCase().toBoolean())
-    project.hasProperty('abis') && (props['abis'] = abis.split(','))
+    project.hasProperty('abis') && (props['abis'] = abis.split(',').toList())
     project.hasProperty('logLevel') && (props['logLevel'] = logLevel.toInteger())
     props['hasSign'] = props['storeFile']?.trim() && props['storePassword']?.trim() && props['keyAlias']?.trim() && props['keyPassword']?.trim()
     !project.hasProperty('targetSdk') && (targetSdk = (props['targetSdk']?:29))
@@ -35,6 +45,7 @@ ext {
     props['buildApi'] = props['buildApi'].toInteger()
     props['logLevel'] = props['logLevel']?: 2
     props['logLevel'] = props['logLevel'].toInteger()
+    props['appType'] = getType(rootProject.props['abis'] ?: ['armeabi-v7a', 'x86', 'arm64-v8a', 'x86_64'])
 }
 
 buildscript {
@@ -43,7 +54,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.1.2'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

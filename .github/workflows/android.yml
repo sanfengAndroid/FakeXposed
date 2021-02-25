@@ -6,12 +6,14 @@ on:
 
 jobs:
   build:
-    name: Build Apk on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ ubuntu-latest, windows-latest, macOS-latest ]
+#    name: Build Apk on ${{ matrix.os }}
+#    runs-on: ${{ matrix.os }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        os: [ ubuntu-latest, windows-latest, macOS-latest ]
+    name: Build Apk on ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out

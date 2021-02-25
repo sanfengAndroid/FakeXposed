@@ -26,7 +26,7 @@ def lowHookModuleName = 'hookl'
 def hookModuleName = (rootProject.props['buildApi'] ?: rootProject.targetSdk) >= 24 ? highHookModuleName : lowHookModuleName
 def mVersionCode = 1100
 def mVersionName = "1.1"
-
+def appType = rootProject.props['appType']
 android {
     compileSdkVersion 30
     if (rootProject.props['hasSign']) {
@@ -63,6 +63,7 @@ android {
         buildConfigField 'String', 'HOOK_MODULE_NAME', "\"${hookModuleName}\""
         buildConfigField 'String', 'HOOK_HIGH_MODULE_NAME', "\"${highHookModuleName}\""
         buildConfigField 'String', 'HOOK_LOW_MODULE_NAME', "\"${lowHookModuleName}\""
+        buildConfigField 'String', 'APP_TYPE', "\"${appType}\""
 
     }
 
@@ -75,7 +76,7 @@ android {
                 signingConfig signingConfigs.sign
             }
         }
-        debug{
+        debug {
             if (rootProject.props['hasSign']) {
                 signingConfig signingConfigs.sign
             }
@@ -97,14 +98,26 @@ android {
         variant.sourceSets.each {
             it.jniLibs.srcDirs = ["src/main/libs/${buildType}"]
         }
+        variant.outputs.all{
+            outputFileName = "fakexposed-${buildType}-${mVersionName}-${appType}.apk"
+        }
     }
 }
+
 tasks.whenTaskAdded { task ->
     if (task.name.startsWith('merge') && task.name.endsWith('JniLibFolders')) {
         task.doLast {
             it.outputs.files.files.each { File dir ->
+                dir.eachDir {
+                    if (appType == 'x86' && (it.name == 'armeabi-v7a' || it.name == 'arm64-v8a')) {
+                        it.deleteDir()
+                    } else if (appType == 'arm' && (it.name == 'x86' || it.name == 'x86_64')) {
+                        it.deleteDir()
+                    }
+                }
                 dir.eachFileRecurse {
                     if (it.name == "lib${hookModuleName}.so") {
+                        println "delete building library: ${it.absolutePath}"
                         it.delete()
                     }
                 }

@@ -72,7 +72,6 @@ public class HookRuntime implements IHook {
                     return;
                 }
                 for (ExecBean bean : list) {
-                    LogUtil.d(TAG, "查找命令: %s", bean);
                     if (bean.matchParameter && !Arrays.equals(bean.cOriginalParameters, cargs)) {
                         continue;
                     }
