@@ -11,3 +11,9 @@
 - 修复遗漏的syscall open调用号
 - 更改新的Runtime.exec匹配规则并生效
 - 添加Android 25支持
+
+### v1.3
+- 修改数据读取模式，调整targetSdk为23，旧版本需要卸载安装，Android9以下直接使用XsharedPreference
+- 更改部分Java Hook为Native Java Hook，更加通用稳定和防检测
+- 默认添加Edxposed包名到黑名单，解决自身无法访问时其它应用可以访问
+- 部分代码优化

@@ -38,8 +38,8 @@
 2. 根据需要开启`全局Hook` 和指定 `应用Hook`，模块内部会单独判断对某个应用是否启，长按开启/关闭 ![package_configuration](capture/cn/package_configuration.png)
 
 3. 为每一个应用或全局配置不同的Hook选项，如文件黑名单、隐藏`maps`规则、文件重定向、访问控制、包可见性等 ![package_hidden](capture/cn/package_hidden.png) ![dlsym_hidden](capture/cn/dlsym_hidden.png)
-4. `Android 7` 以下数据共享使用 `XSharedPreferences` 无需额外权限，`Android 7` 以上如果有 `root` 权限推荐使用 `root` 权限来安装配置文件到另外的路径以供其它应用访问，否者需要设置本软件 `自启动` 权限，使用 `ContentProvider` 交换数据，这可能会显著增加启动时长
-
+4. `Android 9` 以下数据共享使用 `XSharedPreferences` 无需额外权限，`Android 9` 非 `Edxposed` 版本可能读取不到配置数据，因此荐使用 `root` 权限来安装配置文件到另外的路径以供其它应用访问，否者需要设置本软件 `自启动` 权限加后台执行，使用 `ContentProvider` 交换数据，这可能会显著增加启动时长
+5. 部分模拟器(如:雷电)在应用包含 `arm` 和 `x86` 两种架构时优先选择 `arm` 架构导致软件崩溃，您可下载 `x86` 版本即可
 ## 其它模块调用
 - 获取模块的 `ClassLoader`
 

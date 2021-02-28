@@ -101,14 +101,11 @@
     <string name="status_normal">插件已激活</string>
     <string name="status_warning">插件未激活</string>
     <string name="dismiss">忽略</string>
-    <string name="use_notice">Android 9以上非Edxposed可能读取不到配置文件,可选Root模式安装配置文件则无需额外权限，否者请开启本应用自启动权限，部分手机开启自启动权限依然读取不到配置则推荐将其开启后台保留避免被清理。注意部分模拟器(如:雷电)在应用包含arm和x86两种架构时首选的是arm架构，因此会导致崩溃，下载x86版本即可。更多介绍和反馈请点击下方链接</string>
+    <string name="use_notice">Android 9以上非Edxposed可能读取不到配置文件,可选Root模式安装配置文件则无需额外权限，否者请开启本应用自启动权限，部分手机开启自启动权限依然读取不到配置则推荐将其开启后台保留避免被清理。注意部分模拟器(如:雷电)在应用包含arm和x86两种架构时首选的是arm架构会导致崩溃，下载x86版本即可。更多介绍和反馈请点击下方链接</string>
     <string name="hook_option">Hook配置</string>
-    <string name="block_java_execvp">屏蔽Java execvp拦截</string>
-    <string name="block_java_execvp_true">开启Java execvp拦截,会导致Runtime.exec执行不成功</string>
-    <string name="block_java_execvp_false">忽略Java execpe拦截,无法拦截Runtime.exec</string>
     <string name="native_hook_descriptor">关于native hook描述</string>
     <string name="about_app">关于应用</string>
-    <string name="native_hook_tip">其Native Hook采用类似ld_proload模式将Hook模块动态设置为预加载库，因此内部修改linker的数据结构手动将模块添加到预加载列表中，添加成功后需要重新重定位关键的系统库使其导入符号地址指向Hook模块，在Hook模块生效后再加载的模块其导入表都会被重定向。\n当然也有对应的缺点\n    1. 不是内联Hook拦截所有调用\n    2. 过早加载的系统库要实施拦截需要手动调用重定位库\n    3. 内部已拦截syscall函数，如果采用软中断直接系统调用则无法拦截，当然内联Hook也无法做到\n    4. 目前Native层拦截java execvp还无法成功，如果修改则始终得不到正常的子进程退出状态，事实上子进程一直未退出</string>
+    <string name="native_hook_tip">"其Native Hook采用类似ld_proload模式将Hook模块动态设置为预加载库，因此内部修改linker的数据结构手动将模块添加到预加载列表中，添加成功后需要重新重定位关键的系统库使其导入符号地址指向Hook模块，在Hook模块生效后再加载的模块其导入表都会被重定向。\n目前已添加Native Java Hook，只用于Hook Java中的native方法\n当然也有对应的缺点\n    1. 不是内联Hook拦截所有调用\n    2. 过早加载的系统库要实施拦截需要手动调用重定位库\n    3. 内部已拦截syscall函数，如果采用软中断直接系统调用则无法拦截，当然内联Hook也无法做到\n   "</string>
     <string name="appname_empty">NULL</string>
     <string name="unknown">未知版本名</string>
     <string name="app_package">应用包名</string>

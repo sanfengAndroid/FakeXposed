@@ -41,7 +41,7 @@ ext {
     !project.hasProperty('targetSdk') && (targetSdk = (props['targetSdk']?:29))
     targetSdk = targetSdk.toInteger()
     assert (targetSdk >= 21 && targetSdk <=30)
-    props['buildApi'] = props['buildApi']?: 30
+    props['buildApi'] = props['buildApi']?: 23
     props['buildApi'] = props['buildApi'].toInteger()
     props['logLevel'] = props['logLevel']?: 2
     props['logLevel'] = props['logLevel'].toInteger()

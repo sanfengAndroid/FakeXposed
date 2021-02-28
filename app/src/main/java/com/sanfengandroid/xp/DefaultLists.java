@@ -50,6 +50,8 @@ public class DefaultLists {
 
     public static final Pair<String, List<ExecBean>>[] DEFAULT_RUNTIME_LIST;
 
+    public static final String EDXPOSED_PACKAGE = "org.meowcat.edxposed.manager";
+
     static {
         EnvBean bean = new EnvBean("CLASSPATH", "XposedBridge");
         DEFAULT_SYSTEM_ENV_LIST = new EnvBean[]{bean};

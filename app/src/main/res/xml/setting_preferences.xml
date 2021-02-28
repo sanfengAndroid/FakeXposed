@@ -18,14 +18,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/hook_option">
-        <SwitchPreference
-                app:key="java_execvp"
-                android:title="@string/block_java_execvp"
-                app:summaryOn="@string/block_java_execvp_true"
-                app:summaryOff="@string/block_java_execvp_false" />
-
-    </PreferenceCategory>
     <PreferenceCategory android:title="@string/about_app">
         <Preference
                 app:key="native_tip"
