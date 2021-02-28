@@ -32,9 +32,6 @@ int IoRedirect::pid_;
 uid_t IoRedirect::uid_;
 const char *IoRedirect::proc_maps_[2];
 
-
-extern std::map<std::string, int> maps_rules;
-
 /*
  * @param src 保证足够长度
  * */
@@ -95,7 +92,7 @@ const char *IoRedirect::RedirectMaps(const char *path) {
     if (!strcmp(proc_maps_[0], path) || !strcmp(proc_maps_[1], path)) {
         LOGW("Fake: Opening the maps file, ready to redirect.");
         IoRedirect redirect;
-        const char *fake_path = redirect.RedirectSelfMaps(cache_dir);
+        const char *fake_path = redirect.RedirectSelfMaps(FXHandler::Get()->cache_dir);
         if (fake_path != nullptr) {
             return fake_path;
         }
@@ -392,7 +389,7 @@ const char *IoRedirect::RedirectToSource(const char *path) {
 int IoRedirect::CreateTempFile(const char *cache_path) {
     int fd = -1;
     char *path = nullptr;
-    if (asprintf(&path, "%s/tmp.XXXXXXXXXX", cache_path) == -1) {
+    if (asprintf(&path, "%s/tmp.XXXXXX", cache_path) == -1) {
         return -1;
     }
     fd = mkstemp(path);
@@ -413,6 +410,10 @@ int IoRedirect::CreateTempFile(const char *cache_path) {
     return fd;
 }
 
+int IoRedirect::CreateTempFile() {
+    return CreateTempFile(FXHandler::Get()->cache_dir);
+}
+
 int IoRedirect::CreateTempMapsFile(const char *cache_path) {
     if (sprintf(redirect_maps_path_, "%s/maps_%d", cache_path, getpid()) == -1) {
         return -1;
@@ -430,10 +431,10 @@ char *IoRedirect::MatchMapsItem(char *line, MapsMode &mode) {
     bool copy = false;
     char names[1024];
     mode = kMapsNone;
-    if (maps_rules.empty() || strlen(line) < 1) {
+    if (FXHandler::Get()->maps_rules.empty() || strlen(line) < 1) {
         return nullptr;
     }
-    for (auto &maps_rule : maps_rules) {
+    for (auto &maps_rule : FXHandler::Get()->maps_rules) {
         word = maps_rule.first.c_str();
         switch (maps_rule.second) {
             case kMapsNone:
@@ -550,3 +551,5 @@ const char *IoRedirect::RedirectSelfMaps(const char *cache_path) {
     close(fake_fd);
     return redirect_maps_path_;
 }
+
+

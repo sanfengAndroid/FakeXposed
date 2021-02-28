@@ -65,6 +65,8 @@ public class SPProvider {
     private static ProcessMode processMode;
     private static boolean rootConfig = false;
 
+    private static final int XP_DATA_MODE = Build.VERSION.SDK_INT > 32 ? Context.MODE_PRIVATE : Context.MODE_WORLD_READABLE;
+
     public static void setDataMode(XpDataMode mode) {
         SPProvider.mode = mode;
     }
@@ -104,7 +106,7 @@ public class SPProvider {
 
     public static long getHookConfigurationInstallTime() {
         try {
-            SharedPreferences sp = createSharedPreferenceImpl(new File(NativeHook.getConfigPath(), BuildConfig.APPLICATION_ID + "_preferences.xml"), Context.MODE_PRIVATE);
+            SharedPreferences sp = createSharedPreferenceImpl(new File(NativeHook.getConfigPath(), BuildConfig.APPLICATION_ID + "_preferences.xml"), XP_DATA_MODE);
             return sp.getLong(SP_KEY_UPDATE_TIME, 0);
         } catch (Throwable e) {
             return 0;
@@ -138,7 +140,8 @@ public class SPProvider {
         }
         SharedPreferences ret;
         if (processMode == ProcessMode.SELF) {
-            ret = context.getSharedPreferences(name, Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Context.MODE_PRIVATE : Context.MODE_WORLD_READABLE);
+            // Android 9以上不能使用xsp
+            ret = context.getSharedPreferences(name, XP_DATA_MODE);
             if (name.equals(SP_APP_HOOK_VISIBLE) || name.equals(XPOSED_LIST) || name.equals(SP_ALL)) {
                 CACHES.put(name, ret);
             }
@@ -146,7 +149,7 @@ public class SPProvider {
             switch (mode) {
                 case X_SP:
                     if (rootConfig) {
-                        ret = createSharedPreferenceImpl(new File(NativeHook.getConfigPath(), name + ".xml"), Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? Context.MODE_PRIVATE : Context.MODE_WORLD_READABLE);
+                        ret = createSharedPreferenceImpl(new File(NativeHook.getConfigPath(), name + ".xml"), XP_DATA_MODE);
                     } else {
                         XSharedPreferences xp = new XSharedPreferences(BuildConfig.APPLICATION_ID, name);
                         xp.makeWorldReadable();

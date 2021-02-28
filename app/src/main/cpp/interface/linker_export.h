@@ -41,6 +41,12 @@ struct HookJniUnit {
     void **backup_method;
 };
 
+struct HookRegisterNativeUnit {
+    JNINativeMethod hook_method;
+    bool is_static;
+    void **backup_method;
+};
+
 //int HookJniNativeInterfaces(HookJniUnit *items, size_t len);
 
 enum ErrorCode {
@@ -265,6 +271,7 @@ struct RemoteInvokeInterface {
     void* (*CallDlopenImpl)(const char* filename, int flag, /* const android_dlextinfo* */const void* extinfo);
     void* (*CallDlsymImpl)(void* __handle, const char* __symbol);
 #endif
+    int (*HookNativeFunction)(JNIEnv *env, jclass clazz, HookRegisterNativeUnit *items, size_t len);
 };
 
 /*

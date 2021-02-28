@@ -26,7 +26,7 @@ static long (*orig_syscall)(long number, ...);
 
 C_API long (*get_orig_syscall(void))(long number, ...) {
     if (!orig_syscall) {
-        orig_syscall = reinterpret_cast<long (*)(long number, ...)>(FindLibcSymbolRealAddress("syscall"));
+        orig_syscall = reinterpret_cast<long (*)(long number, ...)>(FXHandler::FindLibcSymbolRealAddress("syscall"));
         CHECK(orig_syscall);
     }
     return orig_syscall;

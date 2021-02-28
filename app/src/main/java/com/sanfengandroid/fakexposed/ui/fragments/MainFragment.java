@@ -40,6 +40,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.sanfengandroid.common.model.base.DataModelType;
 import com.sanfengandroid.common.util.LogUtil;
 import com.sanfengandroid.fakeinterface.Installer;
+import com.sanfengandroid.fakexposed.BuildConfig;
 import com.sanfengandroid.fakexposed.R;
 import com.sanfengandroid.fakexposed.SPProvider;
 import com.sanfengandroid.fakexposed.XpApplication;
@@ -50,7 +51,7 @@ import java.net.URISyntaxException;
 public class MainFragment extends Fragment implements View.OnClickListener {
 
     public static final String VIEW_TAG = "Main";
-    private static final boolean SHOW_INSTALL = Build.VERSION.SDK_INT >= Build.VERSION_CODES.N;
+    private static final boolean SHOW_INSTALL = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P;
     private ApplicationViewModel mViewModel;
     private SwitchMaterial installHookConfig;
     private View tipView, updateCard;
@@ -91,7 +92,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         boolean active = isActive();
         icon.setImageDrawable(requireActivity().getResources().getDrawable(active ? R.drawable.ic_state_normal_24dp : R.drawable.ic_state_warning_24dp, null));
         TextView status = view.findViewById(R.id.status_text);
-        status.setText(active ? R.string.status_normal : R.string.status_warning);
+        String tip = getString(active ? R.string.status_normal : R.string.status_warning) + "(" + BuildConfig.APP_TYPE + ")";
+        status.setText(tip);
 
         updateCard = view.findViewById(R.id.update_card);
         view.findViewById(R.id.sync_hook_configuration).setOnClickListener(this);

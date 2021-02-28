@@ -18,7 +18,9 @@
 package com.sanfengandroid.xp.hooks;
 
 import com.sanfengandroid.common.util.LogUtil;
-import com.sanfengandroid.xp.SecureThrowable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author sanfengAndroid
@@ -26,22 +28,18 @@ import com.sanfengandroid.xp.SecureThrowable;
  */
 public class XposedFilter implements IHook {
     public static final String TAG = XposedFilter.class.getSimpleName();
-    private final IHook[] hooks;
+    private final List<IHook> hooks = new ArrayList<>();
 
     public XposedFilter() {
-        hooks = new IHook[]{new HookDebugCheck(),
-                new HookRuntime(), new HookSystemClass(), new HookSystemComponent(),
-//                new HookSystemProperties(),
-                // 放在最后避免拦截框架调用
-                new HookThrowableStackElement(),
-                new HookClassLoad(),
-                new HookNativeMethodChecked()
-        };
+        hooks.add(new HookDebugCheck());
+        hooks.add(new HookSystemClass());
+        hooks.add(new HookSystemComponent());
+        hooks.add(new HookClassLoad());
+        hooks.add(new HookNativeMethodChecked());
     }
 
     @Override
     public void hook(ClassLoader loader) {
-        SecureThrowable.initStack();
         for (IHook hook : hooks) {
             try {
                 hook.hook(loader);

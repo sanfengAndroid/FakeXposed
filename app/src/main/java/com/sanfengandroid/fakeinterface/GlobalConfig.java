@@ -300,10 +300,10 @@ public class GlobalConfig {
                     case RUNTIME_EXEC_HIDE:
                         RuntimeExecModel runModel = (RuntimeExecModel) model;
                         runModel.getBean().transform();
-                        List<ExecBean> list = runtimeBlackList.get(runModel.getBean().originalCommand);
+                        List<ExecBean> list = runtimeBlackList.get(runModel.getBean().oldCmd);
                         if (list == null) {
                             list = new ArrayList<>();
-                            runtimeBlackList.put(runModel.getBean().originalCommand, list);
+                            runtimeBlackList.put(runModel.getBean().oldCmd, list);
                         }
                         list.add(runModel.getBean());
                         break;

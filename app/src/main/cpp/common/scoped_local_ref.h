@@ -60,6 +60,16 @@ public:
         return mLocalRef;
     }
 
+    // Allows "if (scoped_ref == nullptr)"
+    bool operator==(std::nullptr_t) const {
+        return mLocalRef == nullptr;
+    }
+
+    // Allows "if (scoped_ref != nullptr)"
+    bool operator!=(std::nullptr_t) const {
+        return mLocalRef != nullptr;
+    }
+
 private:
     JNIEnv *const mEnv;
     T mLocalRef;

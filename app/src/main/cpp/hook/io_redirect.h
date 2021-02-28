@@ -116,7 +116,9 @@ public:
     // 高版本写/data/local/tmp目录失败,需要传入一个可写的缓存目录,通常/data/data/package/name/cache
     const char *RedirectSelfMaps(const char *cache_path);
 
-    int CreateTempFile(const char *cache_path);
+    static int CreateTempFile(const char *cache_path);
+
+    static int CreateTempFile();
 
     int CreateTempMapsFile(const char *cache_path);
 

@@ -10,12 +10,15 @@ jclass JNIHelper::java_lang_Object;
 jclass JNIHelper::java_lang_Class;
 jclass JNIHelper::java_lang_reflect_Method;
 jclass JNIHelper::java_lang_reflect_Field;
+jclass JNIHelper::java_lang_String;
 
 jmethodID JNIHelper::java_lang_Object_toString;
 jmethodID JNIHelper::java_lang_Object_getClass;
 jmethodID JNIHelper::java_lang_Class_getName;
 jmethodID JNIHelper::java_lang_reflect_Method_getName;
 jmethodID JNIHelper::java_lang_reflect_Field_getName;
+
+const char *JNIHelper::java_lang_String_sign = "Ljava/lang/String;";
 bool JNIHelper::init_;
 
 std::string JNIHelper::GetClassName(JNIEnv *env, jclass clazz) {
@@ -135,6 +138,13 @@ std::string JNIHelper::ToString(JNIEnv *env, jfieldID fieldID) {
     return ToString(env, filed.get());
 }
 
+void JNIHelper::PrintAndClearException(JNIEnv *env) {
+    if (env->ExceptionCheck()) {
+        env->ExceptionDescribe();
+        env->ExceptionClear();
+    }
+}
+
 std::string JNIHelper::GetMethodName(JNIEnv *env, jmethodID mid) {
     ProxyJNIEnv proxy(env);
     if (__predict_false(proxy.ExceptionCheck())) {
@@ -175,12 +185,32 @@ bool JNIHelper::IsClassObject(JNIEnv *env, jobject obj) {
     return proxy.IsInstanceOf(obj, JNIHelper::java_lang_Class);
 }
 
-static jclass CacheClass(JNIEnv *env, const char *jni_class_name) {
+jclass JNIHelper::CacheClass(JNIEnv *env, const char *jni_class_name) {
     ScopedLocalRef<jclass> c(env, env->FindClass(jni_class_name));
     if (c.get() == nullptr) {
         LOGE("Couldn't find class: %s", jni_class_name);
+        return nullptr;
     }
     return reinterpret_cast<jclass>(env->NewGlobalRef(c.get()));
+}
+
+void JNIHelper::ReleaseBytes(JNIEnv *env, jbyteArray arr, const char *parr) {
+    if (parr != nullptr) {
+        env->ReleaseByteArrayElements(arr, (jbyte *) parr, JNI_ABORT);
+    }
+}
+
+void JNIHelper::ReleaseInts(JNIEnv *env, jintArray arr, int *parr) {
+    if (parr != nullptr) {
+        env->ReleaseIntArrayElements(arr, parr, 0);
+    }
+}
+
+
+void JNIHelper::ClearException(JNIEnv *env) {
+    if (env->ExceptionCheck()) {
+        env->ExceptionClear();
+    }
 }
 
 static jmethodID CacheMethod(JNIEnv *env, jclass c, bool is_static, const char *name, const char *signature) {
@@ -197,6 +227,7 @@ void JNIHelper::Init(JNIEnv *env) {
     CHECK(java_lang_Class = CacheClass(env, "java/lang/Class"));
     CHECK(java_lang_reflect_Method = CacheClass(env, "java/lang/reflect/Method"));
     CHECK(java_lang_reflect_Field = CacheClass(env, "java/lang/reflect/Field"));
+    CHECK(java_lang_String = CacheClass(env, "java/lang/String"));
 
     CHECK(java_lang_Object_toString = CacheMethod(env, java_lang_Object, false, "toString", "()Ljava/lang/String;"));
     CHECK(java_lang_Object_getClass = CacheMethod(env, java_lang_Object, false, "getClass", "()Ljava/lang/Class;"));

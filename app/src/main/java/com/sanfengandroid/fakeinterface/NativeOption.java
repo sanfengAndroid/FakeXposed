@@ -24,7 +24,7 @@ package com.sanfengandroid.fakeinterface;
  */
 public class NativeOption {
 
-    public enum NativeIntOption{
+    public enum NativeIntOption {
         /**
          * 文件黑名单
          */
@@ -39,7 +39,25 @@ public class NativeOption {
         MAPS_RULE
     }
 
-    public enum NativeStringOption{
-        SYSTEM_PROPERTY
+    public enum NativeStringOption {
+        /**
+         * 全局系统属性
+         */
+        SYSTEM_PROPERTY,
+
+        /**
+         * 类黑名单
+         */
+        CLASS_BLACKLIST,
+
+        /**
+         * 堆栈类黑名单
+         */
+        STACK_CLASS_BLACKLIST,
+        /**
+         * 环境变量
+         */
+        ENVIRONMENT,
+
     }
 }

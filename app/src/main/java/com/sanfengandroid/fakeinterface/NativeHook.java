@@ -24,6 +24,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.sanfengandroid.common.reflection.ReflectUtil;
 import com.sanfengandroid.common.util.LogUtil;
 import com.sanfengandroid.common.util.Util;
 import com.sanfengandroid.fakelinker.BuildConfig;
@@ -64,6 +65,8 @@ public final class NativeHook {
 
     public static native void nativeTest();
 
+    public static native void nativeTest1();
+
     private static native int nativeStartHook();
 
     private static native boolean nativeSetRedirectFile(String src, String redirect, boolean dir);
@@ -81,6 +84,9 @@ public final class NativeHook {
     private static native int nativeSetJniMonitorLib(String name, boolean contain, boolean add);
 
     private static native int nativeSetJniMonitorAddress(long start, long end, boolean contain, boolean add);
+
+    private static native int nativeSetRuntimeBlacklist(String oldCmd, String newCmd, String[] oldArgv, boolean matchArgv, String[] newArgv,
+                                                        boolean replaceArgv, String input, String output, String error);
 
     public static ErrorCode openJniMonitor() {
         try {
@@ -248,6 +254,57 @@ public final class NativeHook {
         }
         try {
             return ErrorCode.codeToError(nativeAddIntBlackLists(option.ordinal(), names, null, false));
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return ErrorCode.ERROR_JAVA_EXECUTE;
+        }
+    }
+
+    public static ErrorCode addRuntimeBlacklist(String oldCmd, String newCmd, String[] oldArgv, boolean matchArgv,
+                                                String[] newArgv, boolean replaceArgv, String input, String output, String error) {
+        if (TextUtils.isEmpty(oldCmd)) {
+            return ErrorCode.ERROR_JAVA_EXECUTE;
+        }
+        if (TextUtils.equals(oldCmd, newCmd) || TextUtils.isEmpty(newCmd)) {
+            newCmd = null;
+        }
+        if (matchArgv) {
+            if (oldArgv == null || oldArgv.length == 0) {
+                oldArgv = null;
+            } else {
+                for (String argv : oldArgv) {
+                    if (TextUtils.isEmpty(argv)) {
+                        return ErrorCode.ERROR_JAVA_EXECUTE;
+                    }
+                }
+            }
+        } else {
+            oldArgv = null;
+        }
+        if (replaceArgv) {
+            if (newArgv == null || newArgv.length == 0) {
+                newArgv = null;
+            } else {
+                for (String argv : newArgv) {
+                    if (TextUtils.isEmpty(argv)) {
+                        return ErrorCode.ERROR_JAVA_EXECUTE;
+                    }
+                }
+            }
+        } else {
+            newArgv = null;
+        }
+        if (TextUtils.isEmpty(input)) {
+            input = null;
+        }
+        if (TextUtils.isEmpty(output)) {
+            output = null;
+        }
+        if (TextUtils.isEmpty(error)) {
+            error = null;
+        }
+        try {
+            return ErrorCode.codeToError(nativeSetRuntimeBlacklist(oldCmd, newCmd, oldArgv, matchArgv, newArgv, replaceArgv, input, output, error));
         } catch (Throwable e) {
             e.printStackTrace();
             return ErrorCode.ERROR_JAVA_EXECUTE;
@@ -451,6 +508,49 @@ public final class NativeHook {
         }
         ApplicationInfo info = context.getPackageManager().getApplicationInfo(com.sanfengandroid.fakexposed.BuildConfig.APPLICATION_ID, 0);
         libraryPath = info.nativeLibraryDir;
+    }
+
+    public static void initLibraryPath(Context context, int targetSdk) throws PackageManager.NameNotFoundException {
+        if (targetSdk < Build.VERSION_CODES.R || Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            initLibraryPath(context);
+            return;
+        }
+        try {
+            libraryPath = findLibraryPath();
+            LogUtil.d(TAG, "find library at: %s", libraryPath);
+        } catch (Exception e) {
+            LogUtil.e(TAG, "find library error", e);
+            initLibraryPath(context);
+        }
+    }
+
+    private static String findLibraryPath() throws Exception {
+        ClassLoader loader = NativeHook.class.getClassLoader();
+        Object pathList = ReflectUtil.getField(loader.getClass().getSuperclass(), loader, "pathList");
+        Object[] dexElements = (Object[]) ReflectUtil.getFieldInstance(pathList, "dexElements");
+        File apkPath = null;
+        for (Object element : dexElements) {
+            File path = (File) ReflectUtil.getFieldInstance(element, "path");
+            if (path == null) {
+                continue;
+            }
+            if (path.getName().endsWith(".apk") && path.getAbsolutePath().contains(com.sanfengandroid.fakexposed.BuildConfig.APPLICATION_ID)) {
+                apkPath = path;
+                break;
+            }
+        }
+        File base = new File(apkPath.getParent(), "lib");
+        File library = null;
+        if (FileInstaller.isRunning64Bit()) {
+            library = new File(base, FileInstaller.isX86() ? "x86_64" : "arm64");
+            if (!library.exists() || !library.isDirectory()) {
+                library = null;
+            }
+        }
+        if (library == null) {
+            library = new File(base, FileInstaller.isX86() ? "x86" : "arm");
+        }
+        return library.getAbsolutePath();
     }
 
     public static String getDefaultHookModulePath() {

@@ -21,6 +21,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Debug;
 import android.provider.Settings;
 import android.view.View;
 
@@ -28,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sanfengandroid.common.util.LogUtil;
 import com.sanfengandroid.common.util.Util;
+import com.sanfengandroid.fakelinker.FakeLinker;
 import com.sanfengandroid.fakexposed.BuildConfig;
 import com.sanfengandroid.fakexposed.R;
 
@@ -53,6 +55,9 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.btn_test_getenv).setOnClickListener(this);
         findViewById(R.id.btn_test_properties).setOnClickListener(this);
         findViewById(R.id.btn_test_runtime_exec).setOnClickListener(this);
+        findViewById(R.id.btn_test_11_load).setOnClickListener(this);
+        findViewById(R.id.btn_test_register).setOnClickListener(this);
+        findViewById(R.id.btn_test_register1).setOnClickListener(this);
     }
 
     @Override
@@ -62,12 +67,13 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
             try {
                 NativeHook.initLibraryPath(this);
                 NativeInit.initNative(this, Util.getProcessName(this));
+                NativeInit.startNative();
             } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
             }
         } else if (id == R.id.btn_dyn_local_load) {
             try {
-                System.loadLibrary(BuildConfig.HOOK_HIGH_MODULE_NAME + "64");
+                System.loadLibrary(BuildConfig.HOOK_LOW_MODULE_NAME + "64");
             } catch (Throwable e) {
                 e.printStackTrace();
             }
@@ -87,13 +93,13 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
             try {
                 Class.forName("de.robv.android.xposed.XposedBridge");
             } catch (Throwable e) {
-                LogUtil.e(TAG, "test class loader2", e);
+                LogUtil.e(TAG, "test  Class.forName", e);
             }
 
             try {
-                LogUtil.d(TAG, "self class %s", Class.forName(BuildConfig.APPLICATION_ID));
+                LogUtil.d(TAG, "self class %s", this.getClassLoader().loadClass("de.robv.android.xposed.XposedBridge"));
             } catch (Throwable e) {
-                LogUtil.e(TAG, "test self class", e);
+                LogUtil.e(TAG, "test ClassLoader().loadClass", e);
             }
             try {
                 Method method = ClassLoader.class.getDeclaredMethod("defineClass", String.class, byte[].class, int.class, int.class);
@@ -108,6 +114,7 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
         } else if (id == R.id.btn_test_global) {
             LogUtil.d(TAG, "Build TAGS: %s", Build.TAGS);
             LogUtil.d(TAG, "Global adb test: %s", Settings.Global.getString(getContentResolver(), "adb_enabled"));
+            LogUtil.d(TAG, "Debug isDebuggerConnected: %s", Debug.isDebuggerConnected());
         } else if (id == R.id.btn_test_getenv) {
             LogUtil.d(TAG, "All environment: %s", System.getenv());
             LogUtil.d(TAG, "ANDROID_ART_ROOT environment: %s", System.getenv("ANDROID_ART_ROOT"));
@@ -124,6 +131,7 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
             AsyncTask.execute(() -> {
                 try {
                     String[] cmd = new String[]{"ls", "/system/lib"};
+//                    String[] cmd = new String[]{"ps"};
                     Process process = Runtime.getRuntime().exec(cmd);
                     BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
                     String line;
@@ -135,6 +143,27 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
                     LogUtil.e(TAG, "test runtime error", e);
                 }
             });
+        }else if (id == R.id.btn_test_11_load){
+            try {
+                FakeLinker.setNativeLogLevel(1);
+                NativeHook.initLibraryPath(this, 30);
+            } catch (PackageManager.NameNotFoundException e) {
+                LogUtil.e(TAG, "test android 11 loader error", e);
+            }
+        }else if (id == R.id.btn_test_register){
+            try {
+                NativeHook.nativeTest();
+            }catch (Throwable e){
+                LogUtil.e(TAG, "test register error", e);
+            }
+        }else if (id == R.id.btn_test_register1){
+            try {
+//                public static native String mapLibraryName(String libname);
+                NativeHook.nativeTest1();
+//                LogUtil.d(TAG, "library name: %s", Class.forName(BuildConfig.APPLICATION_ID));
+            }catch (Throwable e){
+                LogUtil.e(TAG, "test register 1error", e);
+            }
         }
     }
 }

@@ -87,15 +87,16 @@ public class XposedEntry implements IXposedHookLoadPackage {
                     Context contextImpl = createAppContext(lpparam.appInfo);
                     XpConfigAgent.setDataMode(XpDataMode.X_SP);
                     XpConfigAgent.setProcessMode(ProcessMode.SELF);
-                    NativeHook.initLibraryPath(contextImpl);
+                    NativeHook.initLibraryPath(contextImpl, lpparam.appInfo.targetSdkVersion);
                     if (BuildConfig.DEBUG) {
-                        new XposedFilter().hook(lpparam.classLoader);
                         NativeInit.initNative(contextImpl, lpparam.processName);
+                        new XposedFilter().hook(lpparam.classLoader);
+                        NativeInit.startNative();
                     }
                 }
                 return;
             }
-
+            LogUtil.w(TAG, "targetSDK: %d, current class loader: %s", lpparam.appInfo.targetSdkVersion, XposedEntry.class.getClassLoader());
             Context contextImpl = createAppContext(lpparam.appInfo);
             XpDataMode mode;
             // 使用自身ContentProvider如果未启动则手动启动,这样会增加很长的启动时间
@@ -114,9 +115,10 @@ public class XposedEntry implements IXposedHookLoadPackage {
             }
             GlobalConfig.init(map);
             GlobalConfig.removeThis(lpparam.packageName);
-            NativeHook.initLibraryPath(contextImpl);
-            new XposedFilter().hook(lpparam.classLoader);
+            NativeHook.initLibraryPath(contextImpl, lpparam.appInfo.targetSdkVersion);
             NativeInit.initNative(contextImpl, lpparam.processName);
+            new XposedFilter().hook(lpparam.classLoader);
+            NativeInit.startNative();
             hasHook = true;
         } catch (Throwable e) {
             LogUtil.e(TAG, "Hook error", e);

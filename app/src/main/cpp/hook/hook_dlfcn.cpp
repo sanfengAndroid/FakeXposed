@@ -9,12 +9,13 @@
 
 __BEGIN_DECLS
 
-FUN_INTERCEPT API_PUBLIC void *dlopen(const char *filename, int flag) {
-    LOGMV("filename: %s, flag: 0x%x", filename, flag);
+FUN_INTERCEPT API_PUBLIC
+
+void *dlopen(const char *filename, int flag) {
     void *result;
     IS_BLACKLIST_FILE_RETURN(filename, nullptr);
     const char *path = IoRedirect::GetRedirectFile(filename);
-
+    LOGMV("filename: %s, flag: 0x%x", filename, flag);
 #if __ANDROID_API__ >= __ANDROID_API_N__
     result = remote->CallDlopenImpl(path, flag, nullptr, __builtin_return_address(0));
 #else
@@ -29,17 +30,17 @@ FUN_INTERCEPT API_PUBLIC void *dlsym(void *handle, const char *symbol) {
     if (symbol == nullptr) {
         return result;
     }
-    if (SymbolIsBlacklisted(symbol)) {
+    if (FXHandler::SymbolIsBlacklisted(symbol)) {
         LOGMW("get hidden symbol: %s", symbol);
         return result;
     }
 
     // libc handle 有可能就是自身soinfo
-    if (handle == libc_handle || handle == libc_soinfo) {
+    if (handle == FXHandler::Get()->libc_handle || handle == FXHandler::Get()->libc_soinfo) {
         // 优先在本模块查找
         LOGD("find libc dlsym, Use myself first");
         int error_code;
-        result = remote->CallSoinfoFunction(kSFCallDlsym, kSPOriginal, self_soinfo, kSPSymbol, symbol, &error_code);
+        result = remote->CallSoinfoFunction(kSFCallDlsym, kSPOriginal, FXHandler::Get()->self_soinfo, kSPSymbol, symbol, &error_code);
         if (error_code == kErrorNo && result != nullptr) {
             return result;
         }
@@ -82,9 +83,9 @@ typedef struct {
 // * 而当extinfo不为空时实际是使用extinfo中的命名空间
 // * */
 FUN_INTERCEPT API_PUBLIC void *android_dlopen_ext(const char *filename, int flag, const android_dlextinfo *extinfo) {
-    LOGMV("filename: %s, flag: 0x%x\n", filename, flag);
     IS_BLACKLIST_FILE_RETURN(filename, nullptr);
     const char *path = IoRedirect::GetRedirectFile(filename);
+    LOGMV("filename: %s, flag: 0x%x, extinfo: %p", filename, flag, extinfo);
     void *result;
 #if __ANDROID_API__ >= __ANDROID_API_N__
     int error_code = 0;
@@ -106,7 +107,7 @@ FUN_INTERCEPT API_PUBLIC void *android_dlopen_ext(const char *filename, int flag
 FUN_INTERCEPT API_PUBLIC void *android_create_namespace(const char *name, const char *ld_library_path, const char *default_library_path, uint64_t type,
                                                         const char *permitted_when_isolated_path, /*struct android_namespace_t**/void *parent) {
     LOGMV("name: %s, ld library path: %s, default library path: %s, permitted path: %s", name, ld_library_path, default_library_path,
-         permitted_when_isolated_path);
+          permitted_when_isolated_path);
     return remote->CallCreateNamespaceImpl(name, IoRedirect::GetRedirectDirectory(ld_library_path), IoRedirect::GetRedirectDirectory(default_library_path), type,
                                            IoRedirect::GetRedirectDirectory(permitted_when_isolated_path), parent, __builtin_return_address(0));
 }

@@ -54,8 +54,11 @@ add_library(
 		hook/hook_properties.cpp
 		hook/canonicalize_md.c
 
-        common/maps_util.cpp
+		# Java Native Hook
+		hook/hook_java_native.cpp
 
+        common/maps_util.cpp
+		common/exec_strings.cpp
 		# JNI Common
 		common/jni_helper.cpp
 )

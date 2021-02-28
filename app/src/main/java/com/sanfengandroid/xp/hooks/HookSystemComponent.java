@@ -233,7 +233,7 @@ public class HookSystemComponent implements IHook {
             //获取的Singleton<IActivityManager>成员
             //获取Singleton<IActivityManager> gDefault的真实对象
             Object gDefault;
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 gDefault = ReflectUtil.getFieldStatic("android.app.ActivityManager", "IActivityManagerSingleton");
             } else {
                 gDefault = ReflectUtil.getFieldStatic("android.app.ActivityManagerNative", "gDefault");

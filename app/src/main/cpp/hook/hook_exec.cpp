@@ -43,7 +43,7 @@ STUB_SYMBOL int __execl(const char *name, const char *argv0, ExecVariant variant
     }
 
     // Collect the argp too.
-    char **argp = (variant == kIsExecLE) ? va_arg(ap, char**) : GetEnviron();
+    char **argp = (variant == kIsExecLE) ? va_arg(ap, char**) : FXHandler::GetEnviron();
 
     va_end(ap);
     const char *path = IoRedirect::GetRedirectFile(name);

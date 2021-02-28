@@ -146,8 +146,7 @@ def load_config(args):
     config['abi_64'] = list(set(config['abi']) & set(['x86_64', 'arm64-v8a']))
     global STDOUT
     STDOUT = None if args.verbose else subprocess.DEVNULL
-    if is_ci:
-        mkdir('out')
+    mkdir('out')
 
 
 def clean_build():
@@ -157,7 +156,7 @@ def clean_build():
     rm_rf(op.join('fake-linker', '.cxx'))
 
 
-def cleanup():
+def cleanup(args):
     execv([gradlew, 'clean'])
     rm_rf(op.join('app', 'src', 'main', 'libs'))
     rm_rf(op.join('fake-linker', 'src', 'main', 'libs'))
@@ -185,12 +184,12 @@ def get_apk_name(type):
 
 
 def build_all(args):
-    cleanup()
+    cleanup(args)
     for api in range(21, 31):
         if api == 25:
             continue
         header(f'building api {api}')
-        module = 'fake-linker' if api != 23 and api != 30 else 'app'
+        module = 'fake-linker' if api != 21 and api != 30 else 'app'
         proc = execv(get_build_cmd(args, True, module, api, args.merge, config['abi']))
         if proc.returncode != 0:
             error(f'Build external native {api} failed!')
@@ -205,12 +204,11 @@ def build_all(args):
             if proc.returncode != 0:
                 error(f'Build app failed!')
 
-            if is_ci:
-                type = 'release' if args.release else 'debug'
-                name = get_apk_name(type)
-                source = op.join('app', 'build', 'outputs', 'apk', type, name)
-                target = op.join('out', name)
-                mv(source, target)
+            type = 'release' if args.release else 'debug'
+            name = get_apk_name(type)
+            source = op.join('app', 'build', 'outputs', 'apk', type, name)
+            target = op.join('out', name)
+            mv(source, target)
     clean_generate()
     header(f'build fully app successfully.')
 

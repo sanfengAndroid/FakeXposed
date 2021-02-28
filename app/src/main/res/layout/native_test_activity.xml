@@ -79,4 +79,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/btn_test_runtime_exec"
             android:text="测试Runtime.exec执行" />
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_test_11_load"
+            android:text="测试Android11以上加载" />
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_test_register"
+            android:text="测试重注册Native" />
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_test_register1"
+            android:text="测试重注册调用" />
 </LinearLayout>

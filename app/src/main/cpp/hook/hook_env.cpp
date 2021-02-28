@@ -10,6 +10,6 @@ FUN_INTERCEPT HOOK_DEF(char*, getenv, const char *name) {
     if (value == nullptr) {
         return value;
     }
-    char *result = FindEnvReplace(name, value);
+    char *result = FXHandler::EnvironmentReplace(name, value);
     return result == nullptr ? value : result;
 }

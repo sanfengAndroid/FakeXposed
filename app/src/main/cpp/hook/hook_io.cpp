@@ -90,7 +90,7 @@ FUN_INTERCEPT HOOK_DEF(struct dirent *, readdir, DIR *dirp) {
     }
     int found;
     do {
-        if (FileNameIsBlacklisted(ret->d_name)) {
+        if (FXHandler::FileNameIsBlacklisted(ret->d_name)) {
             LOGW("Fake: Found blacklist file: %s, reading next...", ret->d_name);
             ret = orig_readdir(dirp);
             found = 1;

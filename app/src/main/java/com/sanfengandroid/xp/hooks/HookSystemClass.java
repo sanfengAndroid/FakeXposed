@@ -121,7 +121,7 @@ public class HookSystemClass implements IHook {
         // native拦截然后回调java处理 getenv(String)
         Method method;
         // 21 ~ 23 每次调用生成一个Map
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             replaceEnvs();
         } else {
             method = System.class.getDeclaredMethod("getenv");

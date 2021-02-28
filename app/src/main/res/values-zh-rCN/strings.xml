@@ -39,14 +39,14 @@
     <string name="delete_item_tip">确定删除该项数据吗?</string>
     <string name="add_item">添加一项数据</string>
 
-    <string name="tip_load_class">屏蔽方式:Hook\n\n屏蔽点:Class.forName、ClassLoader.loadClass方法\n\n屏蔽规则:关键字包含，区分大小写\n\n说明:动态加载类可以被屏蔽，直接引用暂无法屏蔽</string>
-    <string name="tip_stack_element">屏蔽方式:Hook\n\n屏蔽点:Throwable.getOurStackTrace(Android 7以上)/Throwable.getInternalStackTrace方法\n\n屏蔽规则:关键字包含，区分大小写\n\n说明:只匹配堆栈中的类名，如果找到则删除该元素</string>
+    <string name="tip_load_class">屏蔽方式: Native + Java Hook\n\n屏蔽点:Class.classForName、BaseDexClassLoader.findClass方法\n\n屏蔽规则:关键字包含，区分大小写\n\n说明:动态加载类可以被屏蔽，直接引用暂无法屏蔽</string>
+    <string name="tip_stack_element">屏蔽方式: Native Java Hook\n\n屏蔽点: Throwable.nativeGetStackTrace\n\n屏蔽规则:关键字包含，区分大小写\n\n说明:只匹配堆栈中的类名，如果找到则删除该元素</string>
     <string name="tip_app_package">屏蔽方式:动态代理\n\n屏蔽点:PackageManager相关方法\n\n屏蔽规则:包名完全匹配\n\n说明:直接隐藏PackageManager对黑名单的查询结果</string>
     <string name="tip_system_property">屏蔽方式:直接清除\n\n屏蔽点:System.getProperty方法\n\n屏蔽规则:属性名完全匹配\n\n说明:通常Java层属性并没有被使用到，因此直接删除掉黑名单属性</string>
     <string name="tip_global_system_properties">屏蔽方式: Native Hook\n\n屏蔽点: native对应属性获取方法\n\n屏蔽规则:属性名完全匹配，属性值替换\n\n说明:非字符串类型值将会转换为对应的类型，需自己保证字符串值合法，否者会导致native异常崩溃</string>
     <string name="tip_component_keyword">屏蔽方式:动态代理\n\n屏蔽点:ActivityManager、ActivityTaskManager系列方法\n\n屏蔽规则:关键字匹配\n\n说明:阻止获取包含关键字的当前应用服务、进程、任务、组件名</string>
     <string name="tip_global_getint">屏蔽方式:Hook\n\n屏蔽点:Global.getString方法\n\n屏蔽规则:属性名完全匹配，属性值替换\n\n说明:一些调试或开发属性需要修正，如adb_enabled判断adb开启等等，非字符串类型需要自己保证能转换为对应类型，否者不生效</string>
-    <string name="tip_runtime_exec">屏蔽方式:Hook\n\n屏蔽点:UNIXProcess(Android 7以上)/ProcessManager.exec方法\n\n屏蔽规则:命令名完全匹配，参数可选替换，输入/输出/错误流固定\n\n说明:Hook Runtime.exec更加底层方法，拦截命令并替换参数，目前流只实现固定，暂未实现替换，流的替换是代理原来的流，目前C层拦截得不到正确的返回，如果开启C层拦截会导致所有调用Runtime.exec的命令都执行失败</string>
+    <string name="tip_runtime_exec">屏蔽方式: Native Java Hook\n\n屏蔽点: UNIXProcess.forkAndExec(Android 7以上)/ProcessManager.exec方法\n\n屏蔽规则: 命令名完全匹配，参数可选替换，输入/输出/错误流固定\n\n说明: Native Hook 更加底层方法，拦截命令并替换参数，目前流只实现固定，输入流是命名的正常输出结果，输出流是向进程写入命令通常可以不用，错物流是命名执行错误时的结果</string>
     <string name="tip_file_blacklist">屏蔽方式:Native函数重定向\n\n屏蔽点:fopen，open等方法\n\n屏蔽规则:文件名完全匹配，绝对路径以 ‘/’ 开头\n\n说明: 直接软中断系统调用则无法拦截</string>
     <string name="tip_symbol_blacklist">屏蔽方式:Native函数重定向\n\n屏蔽点:dlsym方法\n\n屏蔽规则:符号名完全匹配\n\n说明:采用dlsym方法动态获取符号的方式才能屏蔽，手动解析如maps文件或soinfo等无法屏蔽</string>
     <string name="tip_maps_blacklist">屏蔽方式:Native Hook\n\n屏蔽点:打开文件相关方法\n\n屏蔽规则:关键字匹配，删除行或替换关键字\n\n说明:文件重定向替换</string>
@@ -75,7 +75,7 @@
     <string name="output_stream">输出流</string>
     <string name="error_stream">错误流</string>
     <string name="add_item_key_runtime_exec_name">新命令名, 空则不修改</string>
-    <string name="add_item_key_runtime_exec_args">命令参数，空格分隔参数，\\ 转义空格和自身</string>
+    <string name="add_item_key_runtime_exec_args">命令参数，空格分隔参数，\\ 转义空格</string>
     <string name="add_item_key_replace_args">替换参数</string>
     <string name="add_item_key_input_stream_fixed">固定输入流</string>
     <string name="add_item_key_output_stream_fixed">固定输出流</string>
@@ -101,7 +101,7 @@
     <string name="status_normal">插件已激活</string>
     <string name="status_warning">插件未激活</string>
     <string name="dismiss">忽略</string>
-    <string name="use_notice">Root模式需要安装配置文件,非Root模式需要设置应用自启动权限,大部分功能依赖Native Hook(查看设置介绍)</string>
+    <string name="use_notice">Android 9以上非Edxposed可能读取不到配置文件,可选Root模式安装配置文件则无需额外权限，否者请开启本应用自启动权限，部分手机开启自启动权限依然读取不到配置则推荐将其开启后台保留避免被清理。注意部分模拟器(如:雷电)在应用包含arm和x86两种架构时首选的是arm架构，因此会导致崩溃，下载x86版本即可。更多介绍和反馈请点击下方链接</string>
     <string name="hook_option">Hook配置</string>
     <string name="block_java_execvp">屏蔽Java execvp拦截</string>
     <string name="block_java_execvp_true">开启Java execvp拦截,会导致Runtime.exec执行不成功</string>

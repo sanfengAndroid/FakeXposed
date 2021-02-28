@@ -54,17 +54,14 @@ public class DefaultLists {
         EnvBean bean = new EnvBean("CLASSPATH", "XposedBridge");
         DEFAULT_SYSTEM_ENV_LIST = new EnvBean[]{bean};
         ExecBean rbean = new ExecBean();
-        rbean.originalCommand = "ls";
-        rbean.originalParameters = "/system/lib";
-        rbean.replaceCommand = "ls";
-        rbean.matchParameter = true;
-//            rbean.replaceParameter = true;
-//            rbean.replaceParameters = "/system";
+        rbean.oldCmd = "ls";
+        rbean.oldArgv = "/system/lib";
+        rbean.matchArgv = true;
         rbean.inputStream = "fake exec ls /system/lib";
         rbean.transform();
         List<ExecBean> list = new ArrayList<>();
         list.add(rbean);
 
-        DEFAULT_RUNTIME_LIST = new Pair[]{new Pair<>(rbean.originalCommand, list)};
+        DEFAULT_RUNTIME_LIST = new Pair[]{new Pair<>(rbean.oldCmd, list)};
     }
 }
