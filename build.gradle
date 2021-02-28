@@ -38,10 +38,10 @@ ext {
     project.hasProperty('abis') && (props['abis'] = abis.split(',').toList())
     project.hasProperty('logLevel') && (props['logLevel'] = logLevel.toInteger())
     props['hasSign'] = props['storeFile']?.trim() && props['storePassword']?.trim() && props['keyAlias']?.trim() && props['keyPassword']?.trim()
-    !project.hasProperty('targetSdk') && (targetSdk = (props['targetSdk']?:29))
+    !project.hasProperty('targetSdk') && (targetSdk = (props['targetSdk']?:23))
     targetSdk = targetSdk.toInteger()
     assert (targetSdk >= 21 && targetSdk <=30)
-    props['buildApi'] = props['buildApi']?: 23
+    props['buildApi'] = props['buildApi']?: 30
     props['buildApi'] = props['buildApi'].toInteger()
     props['logLevel'] = props['logLevel']?: 2
     props['logLevel'] = props['logLevel'].toInteger()
