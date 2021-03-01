@@ -30,5 +30,5 @@
 }
 
 -keep public class com.sanfengandroid.datafilter.ui.fragments.MainFragment{
-    private boolean isActive();
+    public static boolean isActive();
 }

@@ -58,6 +58,8 @@ public class NativeTestActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.native_test_activity);
         if (MainFragment.isActive()) {
             findViewById(R.id.tv_plugin).setVisibility(View.GONE);
+        }else {
+            findViewById(R.id.btn_local_load).setVisibility(View.VISIBLE);
         }
         findViewById(R.id.btn_test_maps).setOnClickListener(this);
         findViewById(R.id.btn_local_load).setOnClickListener(this);

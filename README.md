@@ -1,7 +1,7 @@
 # FakeXposed
 ![License](https://img.shields.io/badge/License-Apache2-blue)
 
-Chinese document click [here](README_CN.md)
+中文文档点击 [这里](README_CN.md)
 
 ## 公众号
 **关注我的公众号可以第一时间收到我的最新原创技术文章分享**

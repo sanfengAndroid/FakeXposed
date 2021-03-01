@@ -526,7 +526,7 @@ public final class NativeHook {
 
     private static String findLibraryPath() throws Exception {
         ClassLoader loader = NativeHook.class.getClassLoader();
-        Object pathList = ReflectUtil.getField(loader.getClass().getSuperclass(), loader, "pathList");
+        Object pathList = ReflectUtil.getField(Class.forName("dalvik.system.BaseDexClassLoader"), loader, "pathList");
         Object[] dexElements = (Object[]) ReflectUtil.getFieldInstance(pathList, "dexElements");
         File apkPath = null;
         for (Object element : dexElements) {
@@ -538,6 +538,9 @@ public final class NativeHook {
                 apkPath = path;
                 break;
             }
+        }
+        if (apkPath == null){
+            return null;
         }
         File base = new File(apkPath.getParent(), "lib");
         File library = null;

@@ -24,6 +24,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         LogUtil.d("Prevent inlining");
         LogUtil.d("Prevent inlining");
         LogUtil.d("Prevent inlining");
+        if (TextUtils.equals(XpApplication.getInstance().getString(R.string.set_gid), "123")){
+            return true;
+        }
         return false;
     }
 
