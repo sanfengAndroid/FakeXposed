@@ -194,8 +194,7 @@ def build_all(args):
         if proc.returncode != 0:
             error(f'Build external native {api} failed!')
 
-    for target in [['x86', 'armeabi-v7a'], ['x86'], ['armeabi-v7a']] if args.merge else [['x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'], ['x86', 'x86_64'],
-                                                                                         ['armeabi-v7a', 'arm64-v8a']]:
+    for target in [['x86'], ['armeabi-v7a']] if args.merge else [['x86', 'x86_64'], ['armeabi-v7a', 'arm64-v8a']]:
         clean_build()
         abis = config['abi_32'] if args.merge else config['abi']
         abis = list(set(abis) & set(target))

@@ -33,7 +33,7 @@ import com.sanfengandroid.common.model.StringModel;
 import com.sanfengandroid.common.model.SymbolBlacklistModel;
 import com.sanfengandroid.common.model.SystemEnvironmentModel;
 import com.sanfengandroid.common.model.SystemPropertyModel;
-import com.sanfengandroid.fakexposed.R;
+import com.sanfengandroid.datafilter.R;
 
 /**
  * 数据模型类型

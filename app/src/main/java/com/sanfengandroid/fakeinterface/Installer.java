@@ -20,7 +20,7 @@ package com.sanfengandroid.fakeinterface;
 import android.content.Context;
 
 import com.sanfengandroid.fakelinker.FileInstaller;
-import com.sanfengandroid.fakexposed.SPProvider;
+import com.sanfengandroid.datafilter.SPProvider;
 
 import java.io.File;
 

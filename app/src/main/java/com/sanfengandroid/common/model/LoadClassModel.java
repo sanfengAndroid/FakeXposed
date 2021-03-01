@@ -19,8 +19,8 @@ package com.sanfengandroid.common.model;
 
 import android.text.TextUtils;
 
-import com.sanfengandroid.fakexposed.R;
-import com.sanfengandroid.fakexposed.XpApplication;
+import com.sanfengandroid.datafilter.R;
+import com.sanfengandroid.datafilter.XpApplication;
 
 /**
  * @author sanfengAndroid

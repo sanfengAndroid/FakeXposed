@@ -19,7 +19,7 @@ package com.sanfengandroid.common;
 
 import android.net.Uri;
 
-import com.sanfengandroid.fakexposed.BuildConfig;
+import com.sanfengandroid.datafilter.BuildConfig;
 
 public class Const {
     public static final String GLOBAL_PACKAGE = "all";

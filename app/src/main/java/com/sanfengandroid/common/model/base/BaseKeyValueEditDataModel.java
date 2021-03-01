@@ -23,8 +23,8 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.sanfengandroid.fakexposed.R;
-import com.sanfengandroid.fakexposed.viewmodel.ApplicationViewModel;
+import com.sanfengandroid.datafilter.R;
+import com.sanfengandroid.datafilter.viewmodel.ApplicationViewModel;
 
 public abstract class BaseKeyValueEditDataModel implements EditDataModel {
     protected EditText etKey;

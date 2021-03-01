@@ -18,7 +18,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:dist="http://schemas.android.com/apk/distribution"
-        package="com.sanfengandroid.fakexposed">
+        package="com.sanfengandroid.datafilter">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <dist:module dist:instant="true" />
@@ -29,9 +29,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.XpFilter"
-            android:name=".XpApplication">
-        <activity android:name=".ui.activties.EditItemDialogActivity" />
-        <activity android:name=".ui.activties.MainActivity">
+            android:name="com.sanfengandroid.datafilter.XpApplication">
+        <activity android:name="com.sanfengandroid.datafilter.ui.activties.EditItemDialogActivity" />
+        <activity android:name="com.sanfengandroid.datafilter.ui.activties.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,12 +39,12 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.activties.SettingsActivity"
+                android:name="com.sanfengandroid.datafilter.ui.activties.SettingsActivity"
                 android:label="@string/settings" />
 
         <provider
-                android:authorities="com.sanfengandroid.fakexposed"
-                android:name=".XPContentProvider"
+                android:authorities="com.sanfengandroid.datafilter"
+                android:name="com.sanfengandroid.datafilter.XPContentProvider"
                 android:exported="true"
                 android:process=":sp"
                 android:enabled="true" />

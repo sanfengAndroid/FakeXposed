@@ -28,7 +28,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.sanfengandroid.common.model.base.BaseShowDataModel;
 import com.sanfengandroid.common.model.base.DataModelFilterable;
-import com.sanfengandroid.fakexposed.R;
+import com.sanfengandroid.datafilter.R;
 
 import org.json.JSONObject;
 

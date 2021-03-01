@@ -16,7 +16,7 @@
   -->
 
 <resources>
-    <string name="app_name">FakeXposed</string>
+    <string name="app_name">DataFilter</string>
     <string name="settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
 
@@ -159,7 +159,7 @@
     <string name="donate_other">Other</string>
     <string name="open_system_hook">Please activate the system process hook and try again.</string>
     <string name="sync_success">Sync configuration is successful</string>
-    <string name="app_use_notice">The open source of this software is forever free for research and learning. Please do not use it for commercial purposes. It is strictly forbidden to use this software for all actions that violate current Chinese laws. Otherwise, all legal responsibilities and all consequences shall be borne by the user, and the development The person has nothing to do. This software may have compatibility issues, please pay attention to backup when opening the system process hook.</string>
+    <string name="app_use_notice">The open source of this software is free forever and is limited to security research and learning, to help analyze malicious software. Please do not use it for other purposes. It is strictly forbidden to use this software for all behaviors that violate current Chinese laws. Otherwise, all legal responsibilities and all consequences shall be borne by The user is responsible and has nothing to do with the developer. This software may have compatibility issues, please pay attention to backup when you start the system process hook.</string>
     <string name="install_hook_configuration">Install Hook configuration file(root)</string>
     <string name="success_install_hook_configuration">Successful installation of Hook configuration file</string>
     <string name="success_uninstall_hook_configuration">Successfully uninstalled Hook configuration file</string>
@@ -170,14 +170,14 @@
     <string name="wechat_public_descriptor">Follow the author\'s public account</string>
     <string name="version">Version</string>
     <string name="share">Share</string>
-    <string name="share_app_text">Bypass Xposed detection, monitor files, system calls, permanent open source and free, support the latest version of Android Come and see it. https://github.com/sanfengAndroid/FakeXposed</string>
+    <string name="share_app_text">Data filter aids analysis of malware, permanent open source and free, support the latest version of Android Come and see it. https://github.com/sanfengAndroid/FakeXposed</string>
     <string name="update">Update</string>
     <string name="ignore">Ignore</string>
     <string name="has_latest_version">Already the latest version.</string>
     <string name="property_value_too_long">The property value is too long to exceed 91 characters</string>
-    <string name="fakexposed_sources">FakeXposed Source</string>
+    <string name="fakexposed_sources">Data Filter Source</string>
     <string name="fakelinker_sources">fake-linker source</string>
-    <string name="fakexposed_article">FakeXposed analyze</string>
+    <string name="fakexposed_article">Data Filter analyze</string>
     <string name="fakelinker_article">fake-linker analyze</string>
     <string name="fakelinker_source_link" translatable="false">https://github.com/sanfengAndroid/fake-linker</string>
     <string name="fakelinker_article_link" translatable="false">https://sanfengandroid.github.io/2021/01/10/modify-linker-to-implement-plt-hook/</string>
@@ -187,4 +187,5 @@
     <string name="add_item_key_match_args">Matching parameters</string>
     <string name="feedback">Discussion and feedback</string>
     <string name="please_install_qq">Please install the new version of mobile qq</string>
+    <string name="test">Test</string>
 </resources>

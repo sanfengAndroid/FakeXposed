@@ -21,8 +21,8 @@ import android.content.Context;
 import android.view.View;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.sanfengandroid.fakexposed.R;
-import com.sanfengandroid.fakexposed.ui.FileBrowseLayout;
+import com.sanfengandroid.datafilter.R;
+import com.sanfengandroid.datafilter.ui.FileBrowseLayout;
 
 public class FileBlacklistModel extends StringModel {
 

@@ -18,7 +18,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.sanfengandroid.fakexposed.ui.activties.MainActivity">
+        tools:context="com.sanfengandroid.datafilter.ui.activties.MainActivity">
 
     <item
             android:id="@+id/action_search"
@@ -71,6 +71,6 @@
     <item
             android:id="@+id/action_test"
             android:orderInCategory="100"
-            android:title="test"
+            android:title="@string/test"
             app:showAsAction="never" />
 </menu>

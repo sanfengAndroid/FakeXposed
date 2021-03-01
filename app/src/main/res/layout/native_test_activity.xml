@@ -19,25 +19,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
     <TextView
-            android:id="@+id/sample_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!" />
+            android:gravity="center"
+            android:id="@+id/tv_plugin"
+            android:text="插件还未激活,请激活后再测试"/>
 
     <Button
             android:id="@+id/btn_local_load"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="本地加载HOOK模块" />
-
+            android:text="本地加载HOOK模块"
+            android:visibility="gone"/>
     <Button
+            android:id="@+id/btn_load_test"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_dyn_local_load"
-            android:text="动态跨命名空间加载" />
-
+            android:text="加载测试数据"
+            android:visibility="gone"/>
     <Button
             android:id="@+id/btn_test_maps"
             android:layout_width="match_parent"
@@ -69,29 +69,38 @@
             android:text="测试SystemProperties属性" />
 
     <Button
-            android:id="@+id/btn_test_java_relink"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="测试Java调用重定位库" />
-
-    <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_test_runtime_exec"
             android:text="测试Runtime.exec执行" />
+
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/btn_test_11_load"
-            android:text="测试Android11以上加载" />
+            android:id="@+id/btn_test_file_hide"
+            android:text="测试文件隐藏" />
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_test_file_redirect"
+            android:text="测试文件重定向" />
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_test_file_access"
+            android:text="测试文件权限" />
+
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_test_register"
-            android:text="测试重注册Native" />
+            android:text="测试重注册Native"
+            android:visibility="gone"/>
+
     <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/btn_test_register1"
-            android:text="测试重注册调用" />
+            android:text="测试重注册调用"
+            android:visibility="gone"/>
 </LinearLayout>

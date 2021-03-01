@@ -17,3 +17,7 @@
 - Change some Java Hooks to Native Java Hooks, which are more general and stable and anti-detection
 - Add the Edxposed package name to the blacklist by default, so that other applications can access it when you can’t access it
 - Partial code optimization
+
+### v1.4
+- Modify package name and application introduction
+- Add test options

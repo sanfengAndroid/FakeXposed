@@ -18,13 +18,14 @@
 package com.sanfengandroid.fakeinterface;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.sanfengandroid.common.bean.ExecBean;
 import com.sanfengandroid.common.model.FileAccessModel;
 import com.sanfengandroid.common.model.MapsRuleModel;
 import com.sanfengandroid.common.model.base.DataModelType;
 import com.sanfengandroid.common.util.LogUtil;
-import com.sanfengandroid.fakexposed.BuildConfig;
+import com.sanfengandroid.datafilter.BuildConfig;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,6 +41,10 @@ public class NativeInit {
             nativeSync();
             if (BuildConfig.DEBUG) {
                 NativeHook.openJniMonitor();
+            }
+            if (TextUtils.equals(process, BuildConfig.APPLICATION_ID)) {
+                GlobalConfig.getMap(DataModelType.PACKAGE_HIDE).clear();
+                NativeHook.nativeTest();
             }
         } catch (Throwable e) {
             LogUtil.e(TAG, "native init error", e);
@@ -104,7 +109,7 @@ public class NativeInit {
 
     private static void addNativeStringOption(DataModelType type) {
         NativeOption.NativeStringOption option = null;
-        switch (type){
+        switch (type) {
             case GLOBAL_SYSTEM_PROPERTY_HIDE:
                 option = NativeOption.NativeStringOption.SYSTEM_PROPERTY;
                 break;

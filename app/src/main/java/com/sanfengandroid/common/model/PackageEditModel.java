@@ -33,10 +33,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sanfengandroid.common.model.base.DataModelFilterable;
 import com.sanfengandroid.common.model.base.EditDataModel;
-import com.sanfengandroid.fakexposed.R;
-import com.sanfengandroid.fakexposed.XpApplication;
-import com.sanfengandroid.fakexposed.adapter.DataModelSelectRecyclerViewAdapter;
-import com.sanfengandroid.fakexposed.viewmodel.ApplicationViewModel;
+import com.sanfengandroid.datafilter.R;
+import com.sanfengandroid.datafilter.XpApplication;
+import com.sanfengandroid.datafilter.adapter.DataModelSelectRecyclerViewAdapter;
+import com.sanfengandroid.datafilter.viewmodel.ApplicationViewModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;

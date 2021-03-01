@@ -27,7 +27,7 @@ import android.util.Base64;
 import com.sanfengandroid.common.Const;
 import com.sanfengandroid.common.model.base.DataModelType;
 import com.sanfengandroid.common.util.LogUtil;
-import com.sanfengandroid.fakexposed.SPProvider;
+import com.sanfengandroid.datafilter.SPProvider;
 
 import java.io.File;
 import java.io.FileReader;

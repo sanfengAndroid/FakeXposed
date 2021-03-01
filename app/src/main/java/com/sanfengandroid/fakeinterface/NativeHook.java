@@ -506,7 +506,7 @@ public final class NativeHook {
         if (libraryPath != null) {
             return;
         }
-        ApplicationInfo info = context.getPackageManager().getApplicationInfo(com.sanfengandroid.fakexposed.BuildConfig.APPLICATION_ID, 0);
+        ApplicationInfo info = context.getPackageManager().getApplicationInfo(com.sanfengandroid.datafilter.BuildConfig.APPLICATION_ID, 0);
         libraryPath = info.nativeLibraryDir;
     }
 
@@ -534,7 +534,7 @@ public final class NativeHook {
             if (path == null) {
                 continue;
             }
-            if (path.getName().endsWith(".apk") && path.getAbsolutePath().contains(com.sanfengandroid.fakexposed.BuildConfig.APPLICATION_ID)) {
+            if (path.getName().endsWith(".apk") && path.getAbsolutePath().contains(com.sanfengandroid.datafilter.BuildConfig.APPLICATION_ID)) {
                 apkPath = path;
                 break;
             }
@@ -554,7 +554,7 @@ public final class NativeHook {
     }
 
     public static String getDefaultHookModulePath() {
-        String name = "lib" + (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? com.sanfengandroid.fakexposed.BuildConfig.HOOK_HIGH_MODULE_NAME : com.sanfengandroid.fakexposed.BuildConfig.HOOK_LOW_MODULE_NAME);
+        String name = "lib" + (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N ? com.sanfengandroid.datafilter.BuildConfig.HOOK_HIGH_MODULE_NAME : com.sanfengandroid.datafilter.BuildConfig.HOOK_LOW_MODULE_NAME);
         return new File(libraryPath, FileInstaller.isRunning64Bit() ? name + "64.so" : name + ".so").getAbsolutePath();
     }
 

@@ -40,7 +40,7 @@ public class DefaultLists {
     @SuppressWarnings("unchecked")
     public static final Pair<String, String>[] DEFAULT_SYSTEM_PROP_LIST = new Pair[]{new Pair<>("vxp", "")};
     @SuppressWarnings("unchecked")
-    public static final Pair<String, String>[] DEFAULT_GLOBAL_PROPERTY_LIST = new Pair[]{new Pair<>("ro.build.selinux", "1")};
+    public static final Pair<String, String>[] DEFAULT_GLOBAL_PROPERTY_LIST = new Pair[]{new Pair<>("ro.build.selinux", "1"), new Pair<>("ro.build.tags", "release-keys")};
     public static final EnvBean[] DEFAULT_SYSTEM_ENV_LIST;
     @SuppressWarnings("unchecked")
     public static final Pair<String, String>[] DEFAULT_GLOBAL_VARIABLE_LIST = new Pair[]{new Pair<>("adb_enabled", "0"), new Pair<>("development_settings_enabled", "0")};

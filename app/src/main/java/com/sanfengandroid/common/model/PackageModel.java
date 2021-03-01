@@ -23,10 +23,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sanfengandroid.fakexposed.R;
-import com.sanfengandroid.fakexposed.XpApplication;
-import com.sanfengandroid.fakexposed.listener.DataModelItemClickListener;
-import com.sanfengandroid.fakexposed.ui.DialogBuilder;
+import com.sanfengandroid.datafilter.R;
+import com.sanfengandroid.datafilter.XpApplication;
+import com.sanfengandroid.datafilter.listener.DataModelItemClickListener;
+import com.sanfengandroid.datafilter.ui.DialogBuilder;
 
 /**
  * @author sanfengAndroid

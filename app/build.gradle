@@ -24,8 +24,8 @@ plugins {
 def highHookModuleName = 'hookh'
 def lowHookModuleName = 'hookl'
 def hookModuleName = (rootProject.props['buildApi'] ?: rootProject.targetSdk) >= 24 ? highHookModuleName : lowHookModuleName
-def mVersionCode = 1300
-def mVersionName = "1.3"
+def mVersionCode = 1400
+def mVersionName = "1.4"
 def appType = rootProject.props['appType']
 android {
     compileSdkVersion 30
@@ -40,7 +40,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId "com.sanfengandroid.fakexposed"
+        applicationId "com.sanfengandroid.datafilter"
         minSdkVersion 21
         targetSdkVersion rootProject.targetSdk
         versionCode mVersionCode
@@ -99,7 +99,7 @@ android {
             it.jniLibs.srcDirs = ["src/main/libs/${buildType}"]
         }
         variant.outputs.all{
-            outputFileName = "fakexposed-${buildType}-${mVersionName}-${appType}.apk"
+            outputFileName = "datafilter-${buildType}-${mVersionName}-${appType}.apk"
         }
     }
 }

@@ -27,10 +27,11 @@ import android.util.Log;
 import com.sanfengandroid.common.Const;
 import com.sanfengandroid.common.model.base.ShowDataModel;
 import com.sanfengandroid.common.util.LogUtil;
+import com.sanfengandroid.datafilter.BuildConfig;
 import com.sanfengandroid.fakeinterface.GlobalConfig;
 import com.sanfengandroid.fakeinterface.NativeHook;
 import com.sanfengandroid.fakeinterface.NativeInit;
-import com.sanfengandroid.fakexposed.BuildConfig;
+import com.sanfengandroid.fakeinterface.NativeTestActivity;
 import com.sanfengandroid.xp.hooks.XposedFilter;
 
 import java.lang.reflect.Constructor;
@@ -88,11 +89,11 @@ public class XposedEntry implements IXposedHookLoadPackage {
                     XpConfigAgent.setDataMode(XpDataMode.X_SP);
                     XpConfigAgent.setProcessMode(ProcessMode.SELF);
                     NativeHook.initLibraryPath(contextImpl, lpparam.appInfo.targetSdkVersion);
-                    if (BuildConfig.DEBUG) {
-                        NativeInit.initNative(contextImpl, lpparam.processName);
-                        new XposedFilter().hook(lpparam.classLoader);
-                        NativeInit.startNative();
-                    }
+
+                    NativeTestActivity.initTestData(contextImpl);
+                    NativeInit.initNative(contextImpl, lpparam.processName);
+                    new XposedFilter().hook(lpparam.classLoader);
+                    NativeInit.startNative();
                 }
                 return;
             }
@@ -201,7 +202,7 @@ public class XposedEntry implements IXposedHookLoadPackage {
     }
 
     private void hookSelf(ClassLoader loader) throws ClassNotFoundException {
-        XposedHelpers.findAndHookMethod(loader.loadClass("com.sanfengandroid.fakexposed.ui.fragments.MainFragment"), "isActive", new XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(loader.loadClass("com.sanfengandroid.datafilter.ui.fragments.MainFragment"), "isActive", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 param.setResult(true);

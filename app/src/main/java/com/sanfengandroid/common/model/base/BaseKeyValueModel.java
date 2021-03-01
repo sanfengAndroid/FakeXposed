@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sanfengandroid.fakexposed.R;
+import com.sanfengandroid.datafilter.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

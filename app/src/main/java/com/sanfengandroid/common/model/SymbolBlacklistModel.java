@@ -19,7 +19,7 @@ package com.sanfengandroid.common.model;
 
 import android.content.Context;
 
-import com.sanfengandroid.fakexposed.R;
+import com.sanfengandroid.datafilter.R;
 
 public class SymbolBlacklistModel extends StringModel {
     @Override

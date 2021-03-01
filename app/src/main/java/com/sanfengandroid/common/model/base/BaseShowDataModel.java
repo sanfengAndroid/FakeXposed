@@ -20,7 +20,7 @@ package com.sanfengandroid.common.model.base;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.sanfengandroid.fakexposed.R;
+import com.sanfengandroid.datafilter.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

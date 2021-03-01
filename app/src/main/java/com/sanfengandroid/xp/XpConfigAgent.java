@@ -21,7 +21,7 @@ import android.content.Context;
 
 import com.sanfengandroid.fakeinterface.GlobalConfig;
 import com.sanfengandroid.common.model.base.ShowDataModel;
-import com.sanfengandroid.fakexposed.SPProvider;
+import com.sanfengandroid.datafilter.SPProvider;
 
 import java.util.Map;
 import java.util.Set;

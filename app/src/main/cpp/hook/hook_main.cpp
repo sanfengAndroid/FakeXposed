@@ -754,7 +754,7 @@ static void NativeHook_Test1(JNIEnv *env, jclass clazz) {
 }
 
 static void NativeHook_Test(JNIEnv *env, jclass clazz) {
-    LOGD("create temp file: %d", IoRedirect::CreateTempFile());
+    putenv((char *) "test_key=sanfengandroid");
 }
 
 static void NativeHook_Test2(JNIEnv *env, jclass clazz) {

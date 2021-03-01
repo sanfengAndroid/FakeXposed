@@ -24,7 +24,7 @@ import com.sanfengandroid.common.model.base.DataModelType;
 import com.sanfengandroid.common.util.LogUtil;
 import com.sanfengandroid.fakeinterface.GlobalConfig;
 import com.sanfengandroid.fakeinterface.NativeHook;
-import com.sanfengandroid.fakexposed.BuildConfig;
+import com.sanfengandroid.datafilter.BuildConfig;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
