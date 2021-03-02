@@ -24,8 +24,8 @@ plugins {
 def highHookModuleName = 'hookh'
 def lowHookModuleName = 'hookl'
 def hookModuleName = (rootProject.props['buildApi'] ?: rootProject.targetSdk) >= 24 ? highHookModuleName : lowHookModuleName
-def mVersionCode = 1400
-def mVersionName = "1.4"
+def mVersionCode = 1500
+def mVersionName = "1.5"
 def appType = rootProject.props['appType']
 android {
     compileSdkVersion 30
@@ -54,7 +54,7 @@ android {
                 cFlags ""
                 abiFilters.addAll(rootProject.props['abis'] ?: ['armeabi-v7a', 'x86', 'arm64-v8a', 'x86_64'])
                 arguments '-DANDROID_PLATFORM=' + (rootProject.props['buildApi']), "-DHOOK_MODULE_NAME=${hookModuleName}",
-                        '-DMERGE_BUILD=' + (rootProject.props['mergeBuild'] ?: true),
+                        '-DMERGE_BUILD=' + rootProject.props['mergeBuild'],
                         '-DHOOK_LOG_LEVEL=' + (rootProject.props['logLevel']),
                         "-DMODULE_VERSION=${mVersionCode}",
                         "-DMODULE_VERSION_NAME=\"${mVersionName}\""
@@ -98,7 +98,7 @@ android {
         variant.sourceSets.each {
             it.jniLibs.srcDirs = ["src/main/libs/${buildType}"]
         }
-        variant.outputs.all{
+        variant.outputs.all {
             outputFileName = "datafilter-${buildType}-${mVersionName}-${appType}.apk"
         }
     }
@@ -116,7 +116,12 @@ tasks.whenTaskAdded { task ->
                     }
                 }
                 dir.eachFileRecurse {
-                    if (it.name == "lib${hookModuleName}.so") {
+                    if (it.parentFile.name == 'x86_64' || it.parentFile.name == 'arm64-v8a') {
+                        if (!rootProject.props['mergeBuild'] && it.name == "lib${hookModuleName}64.so") {
+                            println "delete current build hook module: ${it.name}"
+                            it.delete()
+                        }
+                    } else if (it.name == "lib${hookModuleName}.so") {
                         println "delete building library: ${it.absolutePath}"
                         it.delete()
                     }

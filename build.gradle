@@ -33,8 +33,11 @@ ext {
     } else if (project.file('local.properties').exists()) {
         props.load(new FileInputStream(project.file('local.properties')))
     }
+    if (props['abis']){
+        props['abis'] = props['abis']?.split(',')?.toList()
+    }
     project.hasProperty('buildApi') && (props['buildApi'] = buildApi.toInteger())
-    project.hasProperty('mergeBuild') && (props['mergeBuild'] = mergeBuild.toLowerCase().toBoolean())
+    project.hasProperty('mergeBuild') && (props['mergeBuild'] = mergeBuild)
     project.hasProperty('abis') && (props['abis'] = abis.split(',').toList())
     project.hasProperty('logLevel') && (props['logLevel'] = logLevel.toInteger())
     props['hasSign'] = props['storeFile']?.trim() && props['storePassword']?.trim() && props['keyAlias']?.trim() && props['keyPassword']?.trim()
@@ -46,6 +49,8 @@ ext {
     props['logLevel'] = props['logLevel']?: 2
     props['logLevel'] = props['logLevel'].toInteger()
     props['appType'] = getType(rootProject.props['abis'] ?: ['armeabi-v7a', 'x86', 'arm64-v8a', 'x86_64'])
+    props['mergeBuild'] = props['mergeBuild']?: true
+    props['mergeBuild'] = props['mergeBuild'].toBoolean()
 }
 
 buildscript {

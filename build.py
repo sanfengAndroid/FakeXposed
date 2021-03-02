@@ -100,6 +100,7 @@ STDOUT = None
 
 
 def execv(cmd):
+    header(cmd)
     return subprocess.run(cmd, stdout=STDOUT)
 
 

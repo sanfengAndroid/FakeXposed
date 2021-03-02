@@ -21,3 +21,8 @@
 ### v1.4
 - Modify package name and application introduction
 - Add test options
+
+### v1.5
+- Fix the circular dependency issue below Android7
+- Fix some dynamic proxy errors
+- Fixed some cases where Android11 could not read the file path 

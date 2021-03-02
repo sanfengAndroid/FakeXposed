@@ -405,14 +405,14 @@ static int InitHook() {
     };
 
     if (find_value(kHFJavaExecvp) == kOOpen) {
-        VarLengthObject<const char *> *libs = VaArgsToVarLengthObject<const char *>(8, "libjavacore.so", "libnativehelper.so", "libnativeloader.so",
+        VarLengthObject<const char *> *libs = VaArgsToVarLengthObject<const char *>(9, "libjavacore.so", "libnativehelper.so", "libnativeloader.so",
                                                                                     "libart.so", "libopenjdk.so", "libopenjdkjvm.so",
-                                                                                    "libandroid_runtime.so", "libcutils.so");
+                                                                                    "libandroid_runtime.so", "libcutils.so", "libbase.so");
         remote->CallCommonFunction(kCFCallManualRelinks, kSPAddress, nullptr, kSPNames, libs, &error_code);
     } else {
-        VarLengthObject<const char *> *libs = VaArgsToVarLengthObject<const char *>(7, "libjavacore.so", "libnativehelper.so", "libnativeloader.so",
+        VarLengthObject<const char *> *libs = VaArgsToVarLengthObject<const char *>(8, "libjavacore.so", "libnativehelper.so", "libnativeloader.so",
                                                                                     "libart.so", "libopenjdkjvm.so", "libandroid_runtime.so",
-                                                                                    "libcutils.so");
+                                                                                    "libcutils.so", "libbase.so");
         remote->CallCommonFunction(kCFCallManualRelinks, kSPAddress, nullptr, kSPNames, libs, &error_code);
 
         remote->CallCommonFunction(kCFAddRelinkFilterSymbol, kSPSymbol, "execvp", kSPNull, nullptr, &error_code);
@@ -462,12 +462,20 @@ static int ModifyHookOption(const char *name, int int_value, const char *string_
     return kErrorNo;
 }
 
+static int get_api_level() {
+    char value[92] = { 0 };
+    if (__system_property_get("ro.build.version.sdk", value) < 1) return -1;
+    int api_level = atoi(value);
+    return (api_level > 0) ? api_level : -1;
+}
+
 static void InitHookConfig() {
     if (hook_init) {
         return;
     }
     InitPreFunction();
     FXHandler::Get()->pid = getpid();
+    FXHandler::Get()->api = get_api_level();
     IoRedirect::SetPid(FXHandler::Get()->pid);
     int error_code;
     const char *fake_name = static_cast<const char *>(remote->CallSoinfoFunction(kSFGetName, kSPOriginal, FXHandler::Get()->fake_linker_soinfo, kSPNull, nullptr, &error_code));
@@ -824,7 +832,6 @@ fake_load_library_init(JNIEnv *env, void *fake_soinfo, const RemoteInvokeInterfa
     LOGD("Init Hook module, cache path: %s", cache_path);
     FXHandler::Get()->fake_linker_soinfo = fake_soinfo;
     remote = interface;
-
     CHECK(env);
     CHECK(fake_soinfo);
     CHECK(remote);

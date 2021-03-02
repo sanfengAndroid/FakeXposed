@@ -91,6 +91,7 @@ public:
     std::map<std::string, std::string> load_class_blacklist;
     std::map<std::string, std::string> static_class_blacklist;
     int pid;
+    int api;
 private:
     std::map<std::string, std::vector<RuntimeBean>> runtime_blacklist;
     static FXHandler *instance_;

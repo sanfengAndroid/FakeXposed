@@ -101,7 +101,7 @@
     <string name="status_normal">插件已激活</string>
     <string name="status_warning">插件未激活</string>
     <string name="dismiss">忽略</string>
-    <string name="use_notice">Android 9以上非Edxposed可能读取不到配置文件,可选Root模式安装配置文件则无需额外权限，否者请开启本应用自启动权限，部分手机开启自启动权限依然读取不到配置则推荐将其开启后台保留避免被清理。模拟器下载x86版本，正常手机下载arm版本。更多介绍和反馈请点击下方链接</string>
+    <string name="use_notice">Android 9以上非Edxposed可能读取不到配置文件,可选Root模式安装配置文件则无需额外权限，否者请开启本应用自启动权限，部分手机开启自启动权限依然读取不到配置则推荐将其开启后台保留避免被清理。</string>
     <string name="hook_option">Hook配置</string>
     <string name="native_hook_descriptor">关于native hook描述</string>
     <string name="about_app">关于应用</string>
@@ -155,7 +155,7 @@
     <string name="donate_other">其它方式</string>
     <string name="open_system_hook">请先激活system进程Hook后重试</string>
     <string name="sync_success">同步配置成功</string>
-    <string name="app_use_notice">本软件开源永久免费仅限于安全研究学习，帮助分析恶意软件，请勿用于其它用途，严禁将本软件用于一切与中国现行法律相违背的一切行为，否者一切法律责任及所有后果均由使用方承担，与开发者无关。本软件可能会有兼容性问题，开启系统进程Hook时请注意备份。</string>
+    <string name="app_use_notice">本软件开源永久免费仅限于安全研究学习，帮助分析恶意软件，请勿用于其它用途，严禁将本软件用于一切与中国现行法律相违背的一切行为，否者一切法律责任及所有后果均由使用方承担，与开发者无关。模拟器请下载x86版本，手机请下载arm版本，本软件可能会有兼容性问题，开启系统进程Hook时请注意备份。</string>
     <string name="install_hook_configuration">安装Hook配置文件(root)</string>
     <string name="success_install_hook_configuration">安装Hook配置文件成功</string>
     <string name="success_uninstall_hook_configuration">卸载Hook配置文件成功</string>

@@ -6,8 +6,6 @@
 
 #include <jni_helper.h>
 #include <scoped_utf_chars.h>
-#include <exec_strings.h>
-
 #include <sys/system_properties.h>
 
 
@@ -40,14 +38,6 @@ static jclass FindClass(JNIEnv *env, const char *name) {
     return clazz;
 }
 
-static int api;
-
-static void get_api_level() {
-    char value[92] = {0};
-    if (__system_property_get("ro.build.version.sdk", value) < 1) { api = -1; }
-    int api_level = atoi(value);
-    api = (api_level > 0) ? api_level : -1;
-}
 
 NATIVE_HOOK_DEF(jboolean, VMDebug_isDebuggerConnected, JNIEnv *, jclass) {
     LOGD("fake VMDebug_isDebuggerConnected");
@@ -60,7 +50,7 @@ NATIVE_HOOK_DEF(jobjectArray, Throwable_nativeGetStackTrace, JNIEnv *env, jclass
     std::vector<int> deletes;
     for (int i = 0; i < len; ++i) {
         ScopedLocalRef<jobject> obj(env, env->GetObjectArrayElement(stacks, i));
-        ScopedLocalRef<jstring> declaring_class(env, (jstring)env->GetObjectField(obj.get(), java_cache.java_lang_StackTraceElement_declaringClass));
+        ScopedLocalRef<jstring> declaring_class(env, (jstring) env->GetObjectField(obj.get(), java_cache.java_lang_StackTraceElement_declaringClass));
         ScopedUtfChars name(env, declaring_class.get());
         if (FXHandler::StackClassNameBlacklisted(name.c_str())) {
             LOGMD("found black list name: %s", name.c_str());
@@ -180,52 +170,77 @@ NATIVE_HOOK_DEF(pid_t, ProcessManager_exec, JNIEnv *env, jclass clazz, jobjectAr
                 jobjectArray javaEnvironment, jstring javaWorkingDirectory, jobject inDescriptor,
                 jobject outDescriptor, jobject errDescriptor, jboolean redirectErrorStream) {
     pid_t pid;
-    ExecStrings commands(env, javaCommands);
-    LOGMV("exec command: %s", commands.get()[0]);
-    const char *old_argv = commands.length > 1 ? commands.get()[1] : nullptr;
-    RuntimeBean *bean = FXHandler::FindRuntimeBean(commands.get()[0], &old_argv, commands.length - 1);
-    if (bean == nullptr) {
-        return orig_ProcessManager_exec(env, clazz, javaCommands, javaEnvironment, javaWorkingDirectory, inDescriptor, outDescriptor, errDescriptor, redirectErrorStream);
+    int length = env->GetArrayLength(javaCommands);
+    char *array[length + 1];
+    array[length] = nullptr;
+    for (jsize i = 0; i < length; ++i) {
+        ScopedLocalRef<jstring> java_string(env, reinterpret_cast<jstring>(env->GetObjectArrayElement(javaCommands, i)));
+        char *string = const_cast<char *>(env->GetStringUTFChars(java_string.get(), nullptr));
+        array[i] = string;
     }
-    const char *new_cmd = nullptr;
-    const char *new_argv = nullptr;
-    jsize block_size = 0;
-    jsize new_argc = commands.length - 1;
-    if (FXHandler::RuntimeReplaceCommandArgv(bean, &new_cmd, &new_argv, &block_size, &new_argc)) {
-        javaCommands = env->NewObjectArray(new_argc + 1, JNIHelper::java_lang_String, nullptr);
-        if (new_cmd == nullptr) {
-            new_cmd = commands.get()[0];
+
+    LOGMV("exec command: %s", array[0]);
+    const char *old_argv = length > 1 ? array[1] : nullptr;
+    RuntimeBean *bean = FXHandler::FindRuntimeBean(array[0], &old_argv, length - 1);
+    if (bean == nullptr) {
+        pid = orig_ProcessManager_exec(env, clazz, javaCommands, javaEnvironment, javaWorkingDirectory, inDescriptor, outDescriptor, errDescriptor, redirectErrorStream);
+    } else {
+        const char *new_cmd = nullptr;
+        const char *new_argv = nullptr;
+        jsize block_size = 0;
+        jsize new_argc = length - 1;
+        jobjectArray javaNewCommands = javaCommands;
+        if (FXHandler::RuntimeReplaceCommandArgv(bean, &new_cmd, &new_argv, &block_size, &new_argc)) {
+            javaNewCommands = env->NewObjectArray(new_argc + 1, JNIHelper::java_lang_String, nullptr);
+            if (new_cmd == nullptr) {
+                new_cmd = array[0];
+            }
+            ScopedLocalRef<jstring> cmd_(env, env->NewStringUTF(new_cmd));
+            env->SetObjectArrayElement(javaNewCommands, 0, cmd_.get());
+            if ((new_argv != nullptr || new_argc != length - 1)) {
+                if (new_argc > 0){
+                    const char *vectors[new_argc];
+                    initVectorFromBlock(vectors, new_argv, new_argc);
+                    for (int i = 0; i < new_argc; ++i) {
+                        ScopedLocalRef<jstring> arg(env,env->NewStringUTF(vectors[i]));
+                        env->SetObjectArrayElement(javaNewCommands, i + 1, arg.get());
+                    }
+                }
+            }else{
+                for (int i = 1; i < new_argc; ++i) {
+                    ScopedLocalRef<jstring> arg(env,env->NewStringUTF(array[i]));
+                    env->SetObjectArrayElement(javaNewCommands, i, arg.get());
+                }
+            }
         }
-        jstring cmd = env->NewStringUTF(new_cmd);
-        env->SetObjectArrayElement(javaCommands, 0, cmd);
-        if ((new_argv != nullptr || new_argc != commands.length - 1) && new_argc != 0) {
-            const char *vectors[new_argc];
-            initVectorFromBlock(vectors, new_argv, new_argc);
-            for (int i = 0; i < new_argc; ++i) {
-                jstring arg = env->NewStringUTF(vectors[i]);
-                env->SetObjectArrayElement(javaCommands, i + 1, arg);
+        pid = orig_ProcessManager_exec(env, clazz, javaNewCommands, javaEnvironment, javaWorkingDirectory, inDescriptor, outDescriptor, errDescriptor, redirectErrorStream);
+        if (!env->ExceptionCheck()) {
+            static jfieldID FileDescriptor_descriptor = nullptr;
+            if (FileDescriptor_descriptor == nullptr) {
+                ScopedLocalRef<jclass> sz(env, FindClass(env, "java/io/FileDescriptor"));
+                FileDescriptor_descriptor = env->GetFieldID(sz.get(), "descriptor", "I");
+                CHECK(FileDescriptor_descriptor);
+            }
+            int redirect[3] = {
+                    GetFileDescriptorOfFD(env, outDescriptor, FileDescriptor_descriptor),
+                    GetFileDescriptorOfFD(env, inDescriptor, FileDescriptor_descriptor),
+                    GetFileDescriptorOfFD(env, errDescriptor, FileDescriptor_descriptor)
+            };
+            if (FXHandler::RuntimeReplaceStream(bean, redirect)) {
+                SetFileDescriptorOfFD(env, outDescriptor, FileDescriptor_descriptor, redirect[0]);
+                SetFileDescriptorOfFD(env, inDescriptor, FileDescriptor_descriptor, redirect[1]);
+                SetFileDescriptorOfFD(env, errDescriptor, FileDescriptor_descriptor, redirect[2]);
             }
         }
     }
-    pid = orig_ProcessManager_exec(env, clazz, javaCommands, javaEnvironment, javaWorkingDirectory, inDescriptor, outDescriptor, errDescriptor, redirectErrorStream);
 
-    if (!env->ExceptionCheck()) {
-        static jfieldID FileDescriptor_descriptor = nullptr;
-        if (FileDescriptor_descriptor == nullptr) {
-            ScopedLocalRef<jclass> sz(env, FindClass(env, "java/io/FileDescriptor"));
-            FileDescriptor_descriptor = env->GetFieldID(sz.get(), "descriptor", "I");
-            CHECK(FileDescriptor_descriptor);
-        }
-        int redirect[3] = {
-                GetFileDescriptorOfFD(env, outDescriptor, FileDescriptor_descriptor),
-                GetFileDescriptorOfFD(env, inDescriptor, FileDescriptor_descriptor),
-                GetFileDescriptorOfFD(env, errDescriptor, FileDescriptor_descriptor)
-        };
-        if (FXHandler::RuntimeReplaceStream(bean, redirect)) {
-            SetFileDescriptorOfFD(env, outDescriptor, FileDescriptor_descriptor, redirect[0]);
-            SetFileDescriptorOfFD(env, inDescriptor, FileDescriptor_descriptor, redirect[1]);
-            SetFileDescriptorOfFD(env, errDescriptor, FileDescriptor_descriptor, redirect[2]);
-        }
+    jthrowable pending_exception = env->ExceptionOccurred();
+    if (pending_exception != nullptr) {
+        env->ExceptionClear();
+    }
+    for (jsize i = 0; i < length; ++i) {
+        ScopedLocalRef<jstring> java_string(env, reinterpret_cast<jstring>(env->GetObjectArrayElement(javaCommands, i)));
+        env->ReleaseStringUTFChars(java_string.get(), array[i]);
     }
     return pid;
 }
@@ -260,12 +275,11 @@ static int RegisterNativeMethods(JNIEnv *env, const char *class_name, HookRegist
 
 bool JNHook::InitJavaNativeHook(JNIEnv *env) {
     JNIHelper::Init(env);
-    get_api_level();
     CacheJNIData(env);
     LOGD("register VMDebug result: %d", RegisterNativeMethods(env, "dalvik/system/VMDebug", &java_hooks.gVMDebug, 1));
     LOGD("register Throwable result: %d", RegisterNativeMethods(env, "java/lang/Throwable", &java_hooks.gThrowable, 1));
     LOGD("register Throwable result: %d", RegisterNativeMethods(env, "java/lang/Class", &java_hooks.gClass, 1));
-    if (api >= __ANDROID_API_N__) {
+    if (FXHandler::Get()->api >= __ANDROID_API_N__) {
         LOGD("register UNIXProcess result: %d", RegisterNativeMethods(env, "java/lang/UNIXProcess", &java_hooks.gUNIXProcess, 1));
     } else {
         LOGD("register ProcessManager result: %d", RegisterNativeMethods(env, "java/lang/ProcessManager", &java_hooks.gProcessManager, 1));
