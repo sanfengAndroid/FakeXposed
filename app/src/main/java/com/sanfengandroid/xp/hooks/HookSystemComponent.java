@@ -101,7 +101,12 @@ public class HookSystemComponent implements IHook {
                         case 1786110784:                    // queryIntentReceivers
                         case -109758974:                    // queryIntentServices
                         case -1530208819:                   // queryIntentContentProviders
-                            Iterator<ResolveInfo> riIt = ((ParceledListSlice<ResolveInfo>) result).getList().iterator();
+                            Iterator<ResolveInfo> riIt;
+                            if (result instanceof List) {
+                                riIt = ((List) result).iterator();
+                            } else {
+                                riIt = ((ParceledListSlice<ResolveInfo>) result).getList().iterator();
+                            }
                             while (riIt.hasNext()) {
                                 ResolveInfo info = riIt.next();
                                 if (GlobalConfig.stringEqualBlacklist(info.resolvePackageName, type)) {
